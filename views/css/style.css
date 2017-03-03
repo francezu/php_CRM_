@@ -1,0 +1,44 @@
+/*couleur pour les titre des atelier */
+.yellow
+{
+    background-color: #FFD700 ;
+    color: white;
+    padding: 5px;
+}
+.green
+{
+    background-color: rgb(93, 155, 134);
+    color: white;
+    padding: 5px;
+}
+.blue
+{
+   background-color: rgb(124, 183, 224);
+    color: black;
+    padding: 5px ; 
+  background: #7cb7e0; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left,rgb(124, 183, 224),rgb(255,255,255)); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right,rgb(124, 183, 224),rgb(255,255,255)); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right,rgb(124, 183, 224),rgb(255,255,255)); /*Fx 3.6-15*/
+  background: linear-gradient(to left, rgb(124, 183, 224), rgb(255,255,255)); /*Standard*/
+}
+
+/* POur le tablesort*/
+
+th.headerSortUp {
+    background-image: url(../img/asc.gif);
+
+}
+th.headerSortDown {
+    background-image: url(../img/desc.gif);
+
+}
+th {
+    background-image: url(../img/bg.gif);
+    cursor: pointer;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 20px !important;
+    margin-left: -1px;
+}

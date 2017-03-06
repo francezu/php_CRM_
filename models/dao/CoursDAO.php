@@ -19,7 +19,7 @@ class CoursDao
                                heureFCours as heureF,
                                prixCours as prix
                       FROM Cours 
-                      WHERE FK_anneeCategorieCours=? and FK_idCategorieCours LIKE ?;";
+                      WHERE FK_anneeCategorieCours=? and FK_idCategorieCours=?;";
 
     const sqlGetById="SELECT idCours as id,
                                codeCours as code,

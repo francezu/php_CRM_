@@ -16,11 +16,13 @@ class CategorieDao
                             nomCategorie as nomCategorie
                      FROM Categorie;";
 
-    const sqlGetById="SELECT anneeCategorie as annee,
-	                         idCategorie as codeCategorie,
-                             nomCategorie as nomCategorie
-                             FROM Categorie
-                       WHERE anneeCategorie=? AND idCategorie LIKE ?;";
+    const sqlGetById="SELECT anneeCategorie AS annee, idCategorie AS codeCategorie, nomCategorie AS nomCategorie FROM categorie cat
+                            where cat.anneeCategorie=? and cat.idCategorie=?
+                      union 
+                      SELECT s.anneeCategorie AS annee, s.idCategorie  AS codeCategorie, s.nomCategorie AS nomCategorie FROM categorie s 
+                            inner join categorie c 
+                            on s.FK_anneeCategorie=c.anneeCategorie and s.FK_idCategorie=c.idCategorie
+                            where c.anneeCategorie=? and c.idCategorie=? ;";
 
     const sqlUpdate="";
 
@@ -68,15 +70,12 @@ class CategorieDao
      * @return Participant avec le Responsable Corespondant
      */
     public  function getFromId($annee,$categorie){
-
         $req=$this->pdo->prepare(self::sqlGetById);
         $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
-        $req->execute(array($annee,$categorie));
+        $req->execute(array($annee,$categorie,$annee,$categorie));
         $categories=$req->fetchAll();
-
         /*Recuperation DAO Cours*/
         $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
-
         /*Recup les cours donnee pour chaque categorie*/
         for($i=0;$i<count($categories);$i++){
 

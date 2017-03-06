@@ -30,10 +30,10 @@ class PostController extends AppController
 
     }
     public function ateliers2016_2017(){
-
         /*Recup de la fabrique DAO*/
         $categorieDAO=$this->fabrique->getCategorieDAO();
-        $categories=$categorieDAO->getFromId(2016,"AT%");
+        $categories=$categorieDAO->getFromId(2016,"AT");
+
         $this->render('ateliers2016_2017/ateliers2016_2017',compact('categories'));
     }
 

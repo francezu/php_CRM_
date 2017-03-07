@@ -163,6 +163,13 @@ class DaoFactory
         return new CommandeDao(self::getInstanceDaoFactory()->getInstancePDO());
 
     }
+    public function getTrancheDAO(){
+        /**
+         * injection de la dependence Dpdo
+         */
+        return new TrancheDAO(self::getInstanceDaoFactory()->getInstancePDO());
+
+    }
 
 
 

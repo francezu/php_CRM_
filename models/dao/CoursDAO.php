@@ -17,7 +17,8 @@ class CoursDao
                                materielCours materiel,
                                heureDCours as heureD,
                                heureFCours as heureF,
-                               prixCours as prix
+                               prixCours as prix,
+                               FK_idTrancheAgeCours as tranche
                       FROM Cours 
                       WHERE FK_anneeCategorieCours=? and FK_idCategorieCours=?;";
 
@@ -28,9 +29,10 @@ class CoursDao
                                materielCours materiel,
                                heureDCours as heureD,
                                heureFCours as heureF,
-                               prixCours as prix
+                               prixCours as prix,
+                               FK_idTrancheAgeCours as trancheAge
                       FROM Cours  
-                      WHERE FK_anneeCategorieCours=? and FK_idCategorieCours LIKE ? ;";
+                      WHERE FK_anneeCategorieCours=? and FK_idCategorieCours=? ;";
 
     const sqlUpdate="";
 
@@ -63,6 +65,7 @@ class CoursDao
         $req->setFetchMode(PDO::FETCH_CLASS,Cours::class);
         $req->execute(array($annee,$categorie));
         $cours=$req->fetchAll();
+
 
 
         $ligCommandeDao=DaoFactory::getInstanceDaoFactory()->getLigCommandeDAO();

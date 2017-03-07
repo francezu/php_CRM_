@@ -63,9 +63,15 @@ class Cours
     private $prix;
 
 
+    /**
+     * @var int
+     */
+    private $trancheAge;
 
 
-    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null, array $ligCommande=null, $prix=null,$id=null)
+
+
+    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null,$trancheAge=null, array $ligCommande=null, $prix=null,$id=null)
     {
         !is_null($id)?$this->id = $id:null;
         !is_null($code)?$this->code = $code:null;
@@ -79,6 +85,7 @@ class Cours
         !is_null($date)?$this->date = $date:null;
         !is_null($ligCommande)?$this->ligCommande = $ligCommande:null;
         !is_null($prix)?$this->prix = $prix:null;
+        !is_null($trancheAge)?$this->trancheAge = $trancheAge:null;
     }
 
 
@@ -263,6 +270,22 @@ class Cours
     public function setPrix($prix)
     {
         $this->prix = $prix;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrancheAge()
+    {
+        return $this->trancheAge;
+    }
+
+    /**
+     * @param int $trancheAge
+     */
+    public function setTrancheAge($trancheAge)
+    {
+        $this->trancheAge = $trancheAge;
     }
 
 

@@ -69,7 +69,38 @@ class CategorieDao
      * @param $id Participant
      * @return Participant avec le Responsable Corespondant
      */
-    public  function getFromId($annee,$categorie){
+    public  function getAllCoursByTypeAndYear($annee,$categorie){
+        $req=$this->pdo->prepare(self::sqlGetById);
+        $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
+        $req->execute(array($annee,$categorie,$annee,$categorie));
+        $categories=$req->fetchAll();
+        /*Recuperation DAO Cours*/
+        $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
+        $listeCours=[];
+        for($i=0;$i<count($categories);$i++){
+            $coursCat=$coursDao->getListeAvecLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
+            $listeCours=array_merge($listeCours,$coursCat);
+        }
+        return  $listeCours;
+    }
+
+
+    public function getCoursTrancheAge($annee,$categorie){
+        $listeCours=$this->getAllCoursByTypeAndYear($annee,$categorie);
+
+        /*Recuperation tranche age*/
+        $trancheDao=DaoFactory::getInstanceDaoFactory()->getTrancheDAO();
+        $listetrancheAge=$trancheDao->getListe();
+
+        foreach ($listetrancheAge as $tranche){
+            
+
+        }
+
+    }
+
+
+    public  function getCoursBySousCategorie($annee,$categorie){
         $req=$this->pdo->prepare(self::sqlGetById);
         $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
         $req->execute(array($annee,$categorie,$annee,$categorie));
@@ -77,13 +108,11 @@ class CategorieDao
         /*Recuperation DAO Cours*/
         $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
         /*Recup les cours donnee pour chaque categorie*/
+
         for($i=0;$i<count($categories);$i++){
-
             $cours=$coursDao->getListeAvecLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
-
             $categories[$i]->setCours($cours);
         }
-
 
         return  $categories;
     }

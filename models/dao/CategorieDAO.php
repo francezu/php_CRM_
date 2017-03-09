@@ -16,13 +16,13 @@ class CategorieDao
                             nomCategorie as nomCategorie
                      FROM Categorie;";
 
-    const sqlGetById="SELECT anneeCategorie AS annee, idCategorie AS codeCategorie, nomCategorie AS nomCategorie FROM categorie cat
-                            where cat.anneeCategorie=? and cat.idCategorie=?
-                      union 
-                      SELECT s.anneeCategorie AS annee, s.idCategorie  AS codeCategorie, s.nomCategorie AS nomCategorie FROM categorie s 
-                            inner join categorie c 
-                            on s.FK_anneeCategorie=c.anneeCategorie and s.FK_idCategorie=c.idCategorie
-                            where c.anneeCategorie=? and c.idCategorie=? ;";
+    const sqlGetByYearAndType="SELECT anneeCategorie AS annee, idCategorie AS codeCategorie, nomCategorie AS nomCategorie FROM Categorie cat
+                                     where cat.anneeCategorie=? and cat.idCategorie=?
+                              UNION 
+                              SELECT s.anneeCategorie AS annee, s.idCategorie  AS codeCategorie, s.nomCategorie AS nomCategorie FROM Categorie s 
+                                    inner join Categorie c 
+                                    on s.FK_anneeCategorie=c.anneeCategorie and s.FK_idCategorie=c.idCategorie
+                                    where c.anneeCategorie=? and c.idCategorie=? ;";
 
     const sqlUpdate="";
 
@@ -52,65 +52,46 @@ class CategorieDao
          */
         $categories=$req->fetchAll(PDO::FETCH_CLASS,Categorie::class);
         /*Recuperation DAO Cours*/
-        $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
-
-        for($i=0;$i<count($categories);$i++){
-
-           $cours=$coursDao->getListeAvecLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
-
-           $categories[$i]->setCours($cours);
-
-        }
-
         return $categories;
     }
 
     /**
      * @param $id Participant
-     * @return Participant avec le Responsable Corespondant
+     * @return array Cours avec LigCommande,Commande,Participant
      */
     public  function getAllCoursByTypeAndYear($annee,$categorie){
-        $req=$this->pdo->prepare(self::sqlGetById);
+        $req=$this->pdo->prepare(self::sqlGetByYearAndType);
         $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
         $req->execute(array($annee,$categorie,$annee,$categorie));
         $categories=$req->fetchAll();
-        /*Recuperation DAO Cours*/
+
+
         $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
         $listeCours=[];
+
+
         for($i=0;$i<count($categories);$i++){
-            $coursCat=$coursDao->getListeAvecLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
+            $coursCat=$coursDao->getAllCoursByYearAndTypeWhiteLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
+            /*fusion array Cours de la Categorie Precendente*/
             $listeCours=array_merge($listeCours,$coursCat);
         }
+
         return  $listeCours;
     }
 
 
-    public function getCoursTrancheAge($annee,$categorie){
-        $listeCours=$this->getAllCoursByTypeAndYear($annee,$categorie);
-
-        /*Recuperation tranche age*/
-        $trancheDao=DaoFactory::getInstanceDaoFactory()->getTrancheDAO();
-        $listetrancheAge=$trancheDao->getListe();
-
-        foreach ($listetrancheAge as $tranche){
-            
-
-        }
-
-    }
-
-
     public  function getCoursBySousCategorie($annee,$categorie){
-        $req=$this->pdo->prepare(self::sqlGetById);
+        $req=$this->pdo->prepare(self::sqlGetByYearAndType);
         $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
         $req->execute(array($annee,$categorie,$annee,$categorie));
         $categories=$req->fetchAll();
-        /*Recuperation DAO Cours*/
-        $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
-        /*Recup les cours donnee pour chaque categorie*/
 
+        /*Recup DAO Cours*/
+        $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
+
+        /*Recup les Cours pour chaque SousCategorie*/
         for($i=0;$i<count($categories);$i++){
-            $cours=$coursDao->getListeAvecLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
+            $cours=$coursDao->getAllCoursByYearAndTypeWhiteLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
             $categories[$i]->setCours($cours);
         }
 

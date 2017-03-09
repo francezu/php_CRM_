@@ -22,22 +22,23 @@ class Tranche
     private $description;
 
     /**
+     * @var array Cours
+     */
+    private $cours;
+
+    /**
      * Tranche constructor.
      * @param int $id
      * @param string $nom
      * @param string $description
      */
-    public function __construct($id, $nom,$cours=null, $description=null)
+    public function __construct($id=null, $nom=null, $description=null)
     {
-        !is_null($cours)?$this->cours = $cours:null;
         !is_null($id)?$this->id = $id:null;
         !is_null($nom)?$this->nom = $nom:null;
         !is_null($description)?$this->description = $description:null;
     }
-    /**
-     * @var Cours
-     */
-    private $cours;
+
 
     /**
      * @return Cours

@@ -33,23 +33,29 @@ class LigCommandeDao
         $this->pdo = $pdo;
     }
 
-    public function getGetByIdCours($idCours){
+    /**
+     * @param $idCours L'id du Cours
+     * @return array Une Array des LigCommande.(une LigCommande =obj COMMANDE ,obj Client,int numLig)
+     */
+    public function getGetAllByIdCoursWhiteCommandeAndParticipant($idCours){
 
 
         $req = $this->pdo->prepare(self::sqlGetByIdCours);
 
+        /*Recup sur forme array [0...*] */
         $req->setFetchMode(PDO::FETCH_NUM);
+
         $req->execute(array($idCours));
         $result=$req->fetchAll();
 
         $participnatDAO=DaoFactory::getInstanceDaoFactory()->getParticipantDAO();
         $commandeDAO=DaoFactory::getInstanceDaoFactory()->getCommandeDAO();
 
-        /* on cree l'obj LigCommande avec l'obj participant et on l'ajoute a une array $lignes*/
+        /* on cree l'obj LigCommande avec l'obj Participant et on l'ajoute a une array $lignes*/
          foreach ($result as $row ) {
-             /*recuperation du participant en function de l'id*/
+             /*recuperation du Participant en function de l'id*/
             $participant=$participnatDAO->getFromId($row[2]);
-             /*recuperation de la commande en function de l'id*/
+             /*recuperation de la Commande en function de l'id*/
             $commande=$commandeDAO->getGetById($row[2]);
 
             $lignes[]=new LigCommande($commande,$row[1],$participant,$row[3]);

@@ -13,15 +13,16 @@ namespace  Controller;
 class AppController
 {
        protected $viewPath;
-       protected $fabrique;
+
+       protected $metier;
 
 
 
       /*le constructeur definie le path ou se trouve les vue*/
        public function __construct() {
+           /*On indique le PATH où sont le vues*/
            $this->viewPath='views/pages/';
-           $this->fabrique=\DaoFactory::getInstanceDaoFactory();
-
+           $this->metier= new \Metier();
        }
 
 

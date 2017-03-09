@@ -18,7 +18,7 @@ class CoursDao
                                heureDCours as heureD,
                                heureFCours as heureF,
                                prixCours as prix,
-                               FK_idTrancheAgeCours as tranche
+                               FK_idTrancheAgeCours as trancheAge
                       FROM Cours 
                       WHERE FK_anneeCategorieCours=? and FK_idCategorieCours=?;";
 
@@ -47,8 +47,12 @@ class CoursDao
         $this->pdo = $pdo;
     }
 
-    /*Liste des cours Sans Participants*/
-    public function getListe($annee,$categorie){
+    /**
+     * @param $annee int
+     * @param $categorie string
+     * @return mixed Liste des Cours Sans Participants en function de Type et de l'annee
+     */
+    public function getALLCoursByYearAndType($annee,$categorie){
         $req=$this->pdo->prepare(self::sqlGetAll);
         $req->setFetchMode(PDO::FETCH_CLASS,Cours::class);
         $req->execute(array($annee,$categorie));
@@ -56,23 +60,29 @@ class CoursDao
         return $cours;
     }
 
-    public function getListeAvecLigCommande($annee,$categorie){
+    /**
+     * @param $annee int
+     * @param $categorie string
+     * @return mixed
+     */
+    public function getAllCoursByYearAndTypeWhiteLigCommande($annee,$categorie){
 
         $req = $this->pdo->prepare(self::sqlGetAll);
         /*
-         * dans quelle forme on veut recupere les valeur de la DB
+         * dans quelle forme on recupere les valeur de la DB
          * */
         $req->setFetchMode(PDO::FETCH_CLASS,Cours::class);
-        $req->execute(array($annee,$categorie));
-        $cours=$req->fetchAll();
 
+        $req->execute(array($annee,$categorie));
+        /*Recup cours en function du Type et Annee ex(Ateliers de l'annee scolaire  2015-2017)*/
+        $cours=$req->fetchAll();
 
 
         $ligCommandeDao=DaoFactory::getInstanceDaoFactory()->getLigCommandeDAO();
         /*on a besoin de chaque ligne de la commande où l'id participant correspond  avec l'id cours*/
         for($i=0;$i<count($cours);$i++){
-            /*on recup les lignes commande corespondant au cours*/
-            $lignes=$ligCommandeDao->getGetByIdCours($cours[$i]->getId());
+            /*on recup les lignes commande corespondant au cours avec obj Commande et Participant*/
+            $lignes=$ligCommandeDao->getGetAllByIdCoursWhiteCommandeAndParticipant($cours[$i]->getId());
                /*on ajoute les participants ou cours*/
                $cours[$i]->setLigCommande($lignes);
                /*car si non les valeurs vont êtré seulment ramplacer */

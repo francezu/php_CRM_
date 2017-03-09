@@ -25,8 +25,6 @@ for($i=0;$i<count($categories);$i++){
         $nbLigneParCategorie += count($cours[$j]->getLigCommande());
     }
     if($categories[$i]->getCodeCategorie()=='AT'){
-       
-
 
     }else{
         echo '<article class="col-xl-12 col-md-6 col-lg-4">
@@ -62,8 +60,6 @@ for($i=0;$i<count($categories);$i++){
 
 
 }
-$cours=$categories[0]->getCours();
-$lig=$cours[0]->getLigCommande();
-var_dump($lig[0]->getParticipant())
+var_dump(count($trancheAge[2]->getCours()));
 ?>
 </section>

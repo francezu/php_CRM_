@@ -21,10 +21,16 @@ class PostController extends AppController
 
     }
     public function ateliers2016_2017(){
+        if(isset($_GET['sort']) && $_GET['sort']=="cat"){
+            $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours(2016,"AT");
+            $this->render('sousCategorie',compact('categories'));
+        }else if(isset($_GET['sort']) && $_GET['sort']=="details"){
+            $this->render('coursDetails');
+        }else{
+            $trancheAge=$this->metier->getCoursByTrancheAge(2016,'AT');
+            $this->render('tranche',compact('trancheAge'));
+        }
 
-        $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours(2016,"AT");
-        $trancheAge=$this->metier->getCoursByTrancheAge(2016,'AT');
-        $this->render('ateliers2016_2017/ateliers2016_2017',compact('categories','trancheAge'));
     }
 
     public function preparts2016(){

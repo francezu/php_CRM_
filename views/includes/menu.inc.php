@@ -130,7 +130,7 @@
                                 <a href="#">Ateliers 2015-2016</a>
                             </li>
                             <li>
-                                <a href="?pages=ateliers2016_2017/ateliers2016_2017">Ateliers 2016-2017</a>
+                                <a href="?pages=ateliers2016_2017">Ateliers 2016-2017</a>
                             </li>
                         </ul>
                     </li>

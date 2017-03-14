@@ -68,10 +68,14 @@ class Cours
      */
     private $trancheAge;
 
+    /**
+     * @var String
+     */
+    private $categorieCours;
 
 
 
-    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null,$trancheAge=null, array $ligCommande=null, $prix=null,$id=null)
+    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null,$trancheAge=null,$categorieCours=null, array $ligCommande=null, $prix=null,$id=null)
     {
         !is_null($id)?$this->id = $id:null;
         !is_null($code)?$this->code = $code:null;
@@ -86,6 +90,7 @@ class Cours
         !is_null($ligCommande)?$this->ligCommande = $ligCommande:null;
         !is_null($prix)?$this->prix = $prix:null;
         !is_null($trancheAge)?$this->trancheAge = $trancheAge:null;
+        !is_null($categorieCours)?$this->categorieCours= $categorieCours:null;
     }
 
 
@@ -286,6 +291,22 @@ class Cours
     public function setTrancheAge($trancheAge)
     {
         $this->trancheAge = $trancheAge;
+    }
+
+    /**
+     * @return String
+     */
+    public function getCategorieCours()
+    {
+        return $this->categorieCours;
+    }
+
+    /**
+     * @param String $categorieCours
+     */
+    public function setCategorieCours($categorieCours)
+    {
+        $this->categorieCours = $categorieCours;
     }
 
 

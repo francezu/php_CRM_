@@ -26,6 +26,12 @@ class Tranche
      */
     private $cours;
 
+
+    /**
+     * @var Categorie
+     */
+    private $sousCategorie;
+
     /**
      * Tranche constructor.
      * @param int $id
@@ -104,6 +110,22 @@ class Tranche
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return Categorie
+     */
+    public function getSousCategorie()
+    {
+        return $this->sousCategorie;
+    }
+
+    /**
+     * @param Categorie $sousCategorie
+     */
+    public function setSousCategorie($sousCategorie)
+    {
+        $this->sousCategorie = $sousCategorie;
     }
 
 

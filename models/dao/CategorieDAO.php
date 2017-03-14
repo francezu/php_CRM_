@@ -9,6 +9,9 @@
 class CategorieDao
 {
 
+    /**
+     * @var
+     */
     private  $pdo;
 
     const sqlGetAll="SELECT anneeCategorie as annee,
@@ -24,6 +27,10 @@ class CategorieDao
                                     on s.FK_anneeCategorie=c.anneeCategorie and s.FK_idCategorie=c.idCategorie
                                     where c.anneeCategorie=? and c.idCategorie=? ;";
 
+    const sqlGetBySousCategories="SELECT s.anneeCategorie AS annee, s.idCategorie  AS codeCategorie, s.nomCategorie AS nomCategorie FROM Categorie s 
+                                      inner join Categorie c 
+                                       on s.FK_anneeCategorie=c.anneeCategorie and s.FK_idCategorie=c.idCategorie
+                                  where c.anneeCategorie=? and c.idCategorie=? ;";
     const sqlUpdate="";
 
     const sqlDeleteArt = "DELETE FROM Categorie where anneeCategorie=? AND  idCategorie=?";
@@ -56,46 +63,58 @@ class CategorieDao
     }
 
     /**
-     * @param $id Participant
+     * @param $annee
+     * @param $type
+     * @return ListeSousCategorie en function du Type et Annee
+     */
+    public function getAllSousCategorieByTypeAndYear($annee, $type){
+        $req=$this->pdo->prepare(self::sqlGetBySousCategories);
+        $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
+        $req->execute(array($annee,$type));
+        $categories=$req->fetchAll();
+        return $categories;
+    }
+
+
+
+    /**
+     * @param $annee
+     * @param $type
      * @return array Cours avec LigCommande,Commande,Participant
      */
-    public  function getAllCoursByTypeAndYear($annee,$categorie){
+    public  function getAllCoursByTypeAndYear($annee,$type){
         $req=$this->pdo->prepare(self::sqlGetByYearAndType);
         $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
-        $req->execute(array($annee,$categorie,$annee,$categorie));
+        $req->execute(array($annee,$type,$annee,$type));
         $categories=$req->fetchAll();
-
 
         $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
         $listeCours=[];
-
-
         for($i=0;$i<count($categories);$i++){
             $coursCat=$coursDao->getAllCoursByYearAndTypeWhiteLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
             /*fusion array Cours de la Categorie Precendente*/
             $listeCours=array_merge($listeCours,$coursCat);
         }
-
         return  $listeCours;
     }
 
 
-    public  function getCoursBySousCategorie($annee,$categorie){
-        $req=$this->pdo->prepare(self::sqlGetByYearAndType);
-        $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
-        $req->execute(array($annee,$categorie,$annee,$categorie));
-        $categories=$req->fetchAll();
+    /**
+     * @param $annee
+     * @param $categorie
+     * @return ListeSousCategorie avec le Cours
+     */
+    public  function getCoursBySousCategorie($annee, $type){
+        $SousCategories=$this->getAllSousCategorieByTypeAndYear($annee,$type);
 
-        /*Recup DAO Cours*/
         $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
 
         /*Recup les Cours pour chaque SousCategorie*/
-        for($i=0;$i<count($categories);$i++){
-            $cours=$coursDao->getAllCoursByYearAndTypeWhiteLigCommande($categories[$i]->getAnnee(),$categories[$i]->getCodeCategorie());
-            $categories[$i]->setCours($cours);
+        for($i=0;$i<count($SousCategories);$i++){
+            $cours=$coursDao->getAllCoursByYearAndTypeWhiteLigCommande($SousCategories[$i]->getAnnee(),$SousCategories[$i]->getCodeCategorie());
+            $SousCategories[$i]->setCours($cours);
         }
-
-        return  $categories;
+        return  $SousCategories;
     }
 
 

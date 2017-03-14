@@ -36,7 +36,8 @@ switch ($page){
         $ctr->anniversaireCreatifs();
         break;
     }
-    case("ateliers2016_2017/ateliers2016_2017"):{
+    case("ateliers2016_2017"):{
+
         $ctr->ateliers2016_2017();
         break;
     }

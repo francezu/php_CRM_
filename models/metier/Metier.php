@@ -16,20 +16,31 @@ class Metier
         $this->fabrique=\DaoFactory::getInstanceDaoFactory();
     }
 
-    public function getSousCategorieByYearAndTypeWhiteCours($annee,$categorie){
+
+    /**
+     * @param $annee
+     * @param $categorie
+     * @return ListeSousCategorie avec les Cours dans le cas où il y a des Sous Caregories
+     */
+    public function getSousCategorieByYearAndTypeWhiteCours($annee, $categorie){
         /*Recup CategorieDAO pour travailler avec la class Categorie*/
         $categorieDAO=$this->fabrique->getCategorieDAO();
         $categories=$categorieDAO->getCoursBySousCategorie($annee,$categorie);
         return $categories;
     }
 
-    public function getCoursByTrancheAge($annee,$categorie)
+
+    /**
+     * @param $annee
+     * @param $categorie
+     * @return  array Tranche avec les Cours
+     */
+    public function getCoursByTrancheAge($annee, $categorie)
     {
         $categorieDAO = $this->fabrique->getCategorieDAO();
         $cours = $categorieDAO->getAllCoursByTypeAndYear($annee, $categorie);
         $trancheDAO = $this->fabrique->getTrancheDAO();
         $trancheAge = $trancheDAO->getListe();
-
         for ($j = 0; $j < count($trancheAge); $j++) {
             $tmp = [];
             for ($i = 0; $i < count($cours); $i++) {

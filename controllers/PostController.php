@@ -19,18 +19,58 @@ class PostController extends AppController
 
     public function ateliers2015_2016(){
 
-    }
-    public function ateliers2016_2017(){
-        if(isset($_GET['sort']) && $_GET['sort']=="cat"){
-            $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours(2016,"AT");
-            $this->render('sousCategorie',compact('categories'));
-        }else if(isset($_GET['sort']) && $_GET['sort']=="details"){
-            $this->render('coursDetails');
+        $annee=2015;
+        $type="AT";
+        $trancheAge=$this->metier->getCoursByTrancheAge($annee,$type);
+        if(isset($_GET['ta'])){
+            if($_GET['ta'] == 2){/*trancheAge-1*/
+                /*test l'existance des sous categorie*/
+                if($this->metier->testSousCategorie($annee,"AT")){
+                    /*Recup Categories avec les Cours*/
+                    $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours($annee,$type);
+                    $this->render('sousCategorie',compact('categories'));
+                }else{
+                    $cours=$trancheAge[$_GET['ta']];
+                    $this->render('coursDetails',compact('cours'));
+                }
+            }else{
+                $cours=$trancheAge[$_GET['ta']];
+                $this->render('coursDetails',compact('cours'));
+            }
+        }else if(isset($_GET['sousCat'])){
+            $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours($annee,$type);
+            $cours=$categories[$_GET['sousCat']];
+            $this->render('coursDetails',compact('cours'));
         }else{
-            $trancheAge=$this->metier->getCoursByTrancheAge(2016,'AT');
             $this->render('tranche',compact('trancheAge'));
         }
-
+    }
+    public function ateliers2016_2017(){
+        $annee=2016;
+        $type="AT";
+        $trancheAge=$this->metier->getCoursByTrancheAge($annee,$type);
+        if(isset($_GET['ta'])){
+                        if($_GET['ta'] == 2){/*trancheAge-1*/
+                                            /*test l'existance des sous categorie*/
+                                            if($this->metier->testSousCategorie($annee,"AT")){
+                                                        /*Recup Categories avec les Cours*/
+                                                        $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours($annee,$type);
+                                                        $this->render('sousCategorie',compact('categories'));
+                                            }else{
+                                                        $cours=$trancheAge[$_GET['ta']];
+                                                        $this->render('coursDetails',compact('cours'));
+                                            }
+                        }else{
+                                            $cours=$trancheAge[$_GET['ta']];
+                                            $this->render('coursDetails',compact('cours'));
+                        }
+        }else if(isset($_GET['sousCat'])){
+                        $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours($annee,$type);
+                        $cours=$categories[$_GET['sousCat']];
+                        $this->render('coursDetails',compact('cours'));
+        }else{
+                        $this->render('tranche',compact('trancheAge'));
+        }
     }
 
     public function preparts2016(){

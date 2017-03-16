@@ -12,15 +12,15 @@ echo'<section class="row">
             <ol class="breadcrumb">
               <li>
               <i class="fa fa-dashboard"></i>
-                 <a href="?pages=ateliers2016_2017">Tranche Age</a>
+                 Tranche Age
               </li>
             </ol>
             <hr class="featurette-divider">
             
         </article>
 </section>
-<section class="row">';
 
+<section class="row">';
 for($i=0;$i<count($trancheAge);$i++){
     $cours=$trancheAge[$i]->getCours();
     $nbLigneParCategorie=0;
@@ -46,7 +46,7 @@ for($i=0;$i<count($trancheAge);$i++){
                                     </div>
                                 </div>
                             </div>
-                        <a href="?pages=ateliers2016_2017'.(($trancheAge[$i]->getId()==3)?"&sort=cat":"&sort=details").'">
+                        <a href="?pages=ateliers2016_2017&ta='.(array_search($trancheAge[$i],$trancheAge)).'">
                             <div class="panel-footer">
                                 <span class="pull-left">'.$trancheAge[$i]->getNom().'</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -56,5 +56,6 @@ for($i=0;$i<count($trancheAge);$i++){
                     </div>.
                 </div>
         </article>';
+
 }
 ?>

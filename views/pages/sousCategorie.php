@@ -52,7 +52,7 @@ for($i=0;$i<count($categories);$i++){
                                     </div>
                                 </div>
                             </div>
-                        <a href="?pages=ateliers2016_2017">
+                        <a href="?pages=ateliers2016_2017&sousCat='.$i.'">
                             <div class="panel-footer">
                                 <span class="pull-left">'.$categories[$i]->getNomCategorie().'</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

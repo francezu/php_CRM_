@@ -10,13 +10,10 @@ class Metier
 {
     protected $fabrique;
 
-
     public function __construct() {
         /*Recup la Fabrique DAO*/
         $this->fabrique=\DaoFactory::getInstanceDaoFactory();
     }
-
-
     /**
      * @param $annee
      * @param $categorie
@@ -28,8 +25,9 @@ class Metier
         $categories=$categorieDAO->getCoursBySousCategorie($annee,$categorie);
         return $categories;
     }
-
-
+    public function testSousCategorie($annee, $type){
+        return $this->fabrique->getCategorieDAO()->getAllSousCategorieByTypeAndYear($annee,$type)==0?false:true;
+    }
     /**
      * @param $annee
      * @param $categorie

@@ -7,11 +7,13 @@
  */
 echo'<section class="row">
         <article class="col-xl-12 col-lg-12">
-            <h2 class="pages-header">Ateliers 2016-2017</h2>
+        <div class="jumbotron hero-spacer">
+            <h2 class="pages-header text-center">'.($anneeEtType instanceof Categorie?$anneeEtType->getNomCategorie():"Les Inscription n'ont pas commencé").'</h2>
+            </div>
              <ol class="breadcrumb">
               <li>
                  <i class="fa fa-dashboard"></i>
-                 <a href="?pages=ateliers2016_2017">Tranche Age</a>
+                 <a href="?page=atAndSt&type='.$_GET["type"].'&year='.$_GET["year"].'">Tranche Age</a>
               </li>
                <li class="active">
                  <i class="fa fa-dashboard"></i>
@@ -52,7 +54,7 @@ for($i=0;$i<count($categories);$i++){
                                     </div>
                                 </div>
                             </div>
-                        <a href="?pages=ateliers2016_2017&sousCat='.$i.'">
+                        <a href="?page=atAndSt&type='.$_GET["type"].'&year='.$_GET["year"].'&sousCat='.$i.'">
                             <div class="panel-footer">
                                 <span class="pull-left">'.$categories[$i]->getNomCategorie().'</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

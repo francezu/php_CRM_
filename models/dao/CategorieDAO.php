@@ -14,6 +14,11 @@ class CategorieDao
      */
     private  $pdo;
 
+   const sqlGetById="SELECT anneeCategorie as annee,
+	                         idCategorie as codeCategorie,
+                             nomCategorie as nomCategorie
+                     FROM Categorie WHERE anneeCategorie=? AND idCategorie=? ;";
+
     const sqlGetAll="SELECT anneeCategorie as annee,
 	                        idCategorie as codeCategorie,
                             nomCategorie as nomCategorie
@@ -42,6 +47,13 @@ class CategorieDao
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
+    }
+
+    public function getCategorieById($annee,$type){
+        $req=$this->pdo->prepare(self::sqlGetById);
+        $req->setFetchMode(PDO::FETCH_CLASS,Categorie::class);
+        $req->execute(array($annee,$type));
+        return $req->fetch();
     }
 
 

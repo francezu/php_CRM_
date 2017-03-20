@@ -9,7 +9,7 @@
 class LigCommande
 {
     /**
-     * @var int
+     * @var Commande
      */
     private $commande;
     /**

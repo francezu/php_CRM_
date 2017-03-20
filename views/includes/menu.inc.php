@@ -127,10 +127,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Ateliers <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="?pages=ateliers2015_2016">Ateliers 2015-2016</a>
+                                <a href="?page=atAndSt&type=AT&year=2015">Ateliers 2015-2016</a>
                             </li>
                             <li>
-                                <a href="?pages=ateliers2016_2017">Ateliers 2016-2017</a>
+                                <a href="?page=atAndSt&type=AT&year=2016">Ateliers 2016-2017</a>
                             </li>
                         </ul>
                     </li>
@@ -138,10 +138,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#sc"><i class="fa fa-fw fa-arrows-v"></i> Stages de Carnaval <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="sc" class="collapse">
                             <li>
-                                <a href="#">Carnaval 2016</a>
+                                <a href="?page=atAndSt&type=SC&year=2016">Carnaval 2016</a>
                             </li>
                             <li>
-                                <a href="#">Carnaval 2017</a>
+                                <a href="?page=atAndSt&type=SC&year=2017">Carnaval 2017</a>
                             </li>
                         </ul>
                     </li>
@@ -149,10 +149,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#sp"><i class="fa fa-fw fa-arrows-v"></i> Stages de Pâques <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="sp" class="collapse">
                             <li>
-                                <a href="#">Pâques 2016</a>
+                                <a href="?page=atAndSt&type=SP&year=2016">Pâques 2016</a>
                             </li>
                             <li>
-                                <a href="#">Pâques 2017</a>
+                                <a href="?page=atAndSt&type=SP&year=2017">Pâques 2017</a>
                             </li>
                         </ul>
                     </li>
@@ -160,7 +160,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#se"><i class="fa fa-fw fa-arrows-v"></i> Stages d'Eté <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="se" class="collapse">
                             <li>
-                                <a href="#">Eté 2016</a>
+                                <a href="?page=atAndSt&type=SE&year=2016">Eté 2016</a>
                             </li>
                             <li>
                                 <a href="#">Eté 2017</a>

@@ -14,6 +14,12 @@ class Metier
         /*Recup la Fabrique DAO*/
         $this->fabrique=\DaoFactory::getInstanceDaoFactory();
     }
+
+
+    public function getCategorie($annee,$type){
+        return $this->fabrique->getCategorieDAO()->getCategorieById($annee,$type);
+    }
+
     /**
      * @param $annee
      * @param $categorie
@@ -26,7 +32,8 @@ class Metier
         return $categories;
     }
     public function testSousCategorie($annee, $type){
-        return $this->fabrique->getCategorieDAO()->getAllSousCategorieByTypeAndYear($annee,$type)==0?false:true;
+      /*Test si le tableau est vide si size=0 return false else return true*/
+        return empty($this->fabrique->getCategorieDAO()->getAllSousCategorieByTypeAndYear($annee,$type))?false:true;
     }
     /**
      * @param $annee

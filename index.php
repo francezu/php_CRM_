@@ -19,10 +19,10 @@ use Controller\PostController;
  * link : https://www.grafikart.fr/formations/programmation-objet-php/tp-structure
  */
 
-if(!isset($_GET['pages'])){
+if(!isset($_GET['page'])){
     $page="accueil";
 }else{
-    $page=$_GET['pages'];
+    $page=$_GET['page'];
 }
 
 $ctr=new Controller\PostController();
@@ -36,12 +36,8 @@ switch ($page){
         $ctr->anniversaireCreatifs();
         break;
     }
-    case("ateliers2015_2016"):{
-        $ctr->ateliers2015_2016();
-        break;
-    }
-    case("ateliers2016_2017"):{
-        $ctr->ateliers2016_2017();
+    case("atAndSt"):{
+        $ctr->ateliersAndStages();
         break;
     }
     default:{

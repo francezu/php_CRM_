@@ -10,7 +10,7 @@ class CoursDao
 {
     private  $pdo;
 
-    const sqlGetAll="SELECT idCours as id,
+    const sqlGetByCategorie="SELECT idCours as id,
                                codeCours as code,
                                nomCours as nom,
                                descriptionCours as description,
@@ -32,7 +32,7 @@ class CoursDao
                                prixCours as prix,
                                FK_idTrancheAgeCours as trancheAge
                       FROM Cours  
-                      WHERE FK_anneeCategorieCours=? and FK_idCategorieCours=? ;";
+                      WHERE idCours=? ;";
 
     const sqlUpdate="";
 
@@ -67,7 +67,7 @@ class CoursDao
      */
     public function getAllCoursByYearAndTypeWhiteLigCommande($annee,$categorie){
 
-        $req = $this->pdo->prepare(self::sqlGetAll);
+        $req = $this->pdo->prepare(self::sqlGetByCategorie);
         /*
          * dans quelle forme on recupere les valeur de la DB
          * */

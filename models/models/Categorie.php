@@ -26,17 +26,23 @@ class Categorie
     private $cours;
 
     /**
+     * @var array Categorie
+     */
+    private $sousCategorie;
+
+    /**
      * Categorie constructor.
      * @param int $annee
      * @param String $codeCategorie
      * @param String $nomCategorie
      * @param array $cours
      */
-    public function __construct($annee=null, $codeCategorie=null, $nomCategorie=null, array $cours=null)
+    public function __construct($annee=null, $codeCategorie=null, $nomCategorie=null, array $cours=null,array $sousCategorie=null)
     {
         !is_null($annee)?$this->annee = $annee:null;
         !is_null($codeCategorie)?$this->codeCategorie = $codeCategorie:null;
         !is_null($nomCategorie)?$this->nomCategorie = $nomCategorie:null;
+        !is_null($sousCategorie)?$this->sousCategorie=$sousCategorie:null;
         !is_null($cours)?$this->cours = $cours:null;
     }
 
@@ -104,6 +110,24 @@ class Categorie
     {
         $this->cours = $cours;
     }
+
+    /**
+     * @return array
+     */
+    public function getSousCategorie()
+    {
+        return $this->sousCategorie;
+    }
+
+    /**
+     * @param array $sousCategorie
+     */
+    public function setSousCategorie($sousCategorie)
+    {
+        $this->sousCategorie = $sousCategorie;
+    }
+
+
 
 
 

@@ -16,25 +16,16 @@ class Metier
     }
 
 
-    public function getCategorie($annee,$type){
+    /**
+     * @param $annee
+     * @param $type
+     * @return Categorie avec SousCategorie
+     */
+    public function getCategorie($annee, $type){
         return $this->fabrique->getCategorieDAO()->getCategorieById($annee,$type);
     }
 
-    /**
-     * @param $annee
-     * @param $categorie
-     * @return ListeSousCategorie avec les Cours dans le cas où il y a des Sous Caregories
-     */
-    public function getSousCategorieByYearAndTypeWhiteCours($annee, $categorie){
-        /*Recup CategorieDAO pour travailler avec la class Categorie*/
-        $categorieDAO=$this->fabrique->getCategorieDAO();
-        $categories=$categorieDAO->getCoursBySousCategorie($annee,$categorie);
-        return $categories;
-    }
-    public function testSousCategorie($annee, $type){
-      /*Test si le tableau est vide si size=0 return false else return true*/
-        return empty($this->fabrique->getCategorieDAO()->getAllSousCategorieByTypeAndYear($annee,$type))?false:true;
-    }
+
     /**
      * @param $annee
      * @param $categorie
@@ -43,9 +34,10 @@ class Metier
     public function getCoursByTrancheAge($annee, $categorie)
     {
         $categorieDAO = $this->fabrique->getCategorieDAO();
-        $cours = $categorieDAO->getAllCoursByTypeAndYear($annee, $categorie);
+        $cours = $categorieDAO->getListCoursByCategorie($annee, $categorie);
         $trancheDAO = $this->fabrique->getTrancheDAO();
         $trancheAge = $trancheDAO->getListe();
+
         for ($j = 0; $j < count($trancheAge); $j++) {
             $tmp = [];
             for ($i = 0; $i < count($cours); $i++) {

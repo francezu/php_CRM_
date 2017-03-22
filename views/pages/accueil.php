@@ -24,11 +24,11 @@
     </article>
 </section>
 <section class="row">
-    <article class="col-xs-12 col-6-md col-lg-6">
+    <article class="col-xs-12 col-md-6 col-lg-6">
         <div class="alert alert-success"><p><strong style="font-size:30px;">ok</strong> - Paiement reçu</p></div>
         <div class="alert alert-success"><p><strong style="font-size:30px;">online</strong> - Paiment fait en ligne mais la confirmation n'a pas était reçu</p></div>
     </article>
-    <article class="col-xs-12  col-6-md col-lg-6">
+    <article class="col-xs-12  col-md-6 col-lg-6">
         <div class="alert alert-warning"><p><strong style="font-size:30px;">okpv</strong> - Pour le paiement en 3 fois</p></div>
         <div class="alert alert-danger"> <p><strong style="font-size:30px;">annule</strong> - Le client a annule son inscription</p></div>
     </article>
@@ -42,7 +42,7 @@
     </article>
 </section>
 <section class="row">
-    <article class="col-xs-12 col-6-md col-lg-6">
+    <article class="col-xs-12 col-md-6 col-lg-6">
         <div class="well"><p><strong style="font-size:30px;">0</strong> - Je paye maintenant pour l'année</p></div>
 
     </article>

@@ -9,7 +9,7 @@
 echo'<section class="row">
         <article class="col-xl-12 col-lg-12">
         <div class="jumbotron hero-spacer">
-            <h2 class="pages-header text-center">'.($anneeEtType instanceof Categorie?$anneeEtType->getNomCategorie():"Les Inscription n'ont pas commencé").'</h2>
+            <h2 class="pages-header text-center">'.($categorie instanceof Categorie?$categorie->getNomCategorie():"Les Inscription n'ont pas commencé").'</h2>
             </div>
             <ol class="breadcrumb">
               <li>

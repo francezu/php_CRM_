@@ -123,7 +123,6 @@ class ParticipantDAO
          */
         $participant->setResponsables($responsables);
         $participant->setProfil($profil);
-
         return $participant;
     }
 

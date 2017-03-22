@@ -60,10 +60,12 @@ class LigCommandeDao
 
             $lignes[]=new LigCommande($commande,$row[1],$participant,$row[3]);
          }
+
         /*dans le cas ou le cours n'a pas d'inscriptions*/
          if(isset($lignes[0])){
              return $lignes ;
          }
+
 
     }
 }

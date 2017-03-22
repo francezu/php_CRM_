@@ -20,32 +20,31 @@ class PostController extends AppController
     public function ateliersAndStages(){
         $annee=$_GET["year"];
         $type=$_GET["type"];
-        /*Recup details pour afficher les Titre dans les vues*/
-        $anneeEtType=$this->metier->getCategorie($annee,$type);
-
+        /*Categorie avec SousCategorie et Cours*/
+        $categorie=$this->metier->getCategorie($annee,$type);
+        /*array d'obj TrancheAge avec Cours*/
         $trancheAge=$this->metier->getCoursByTrancheAge($annee,$type);
 
         if(isset($_GET['ta'])){
-            if($_GET['ta'] == 2){/*trancheAge-1*/
-                /*test l'existance des sous categorie*/
-                if($this->metier->testSousCategorie($annee,$type)){
-                    /*Recup Categories avec les Cours*/
-                    $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours($annee,$type);
-                    $this->render('sousCategorie',compact('categories','anneeEtType'));
-                }else{
-                    $objWhiteCours=$trancheAge[$_GET['ta']];
-                    $this->render('coursDetails',compact('objWhiteCours','anneeEtType'));
-                }
-            }else{
-                $objWhiteCours=$trancheAge[$_GET['ta']];
-                $this->render('coursDetails',compact('objWhiteCours','anneeEtType'));
-            }
+                                         /*test l'existance des sous categorie*/
+                        if($_GET['ta'] == 2 && $categorie->getSousCategorie()!=null){/*trancheAge-1*/
+
+                            $this->render('sousCategorie',compact('categorie'));
+
+                        }else{
+
+                                $objWhiteCours=$trancheAge[$_GET['ta']];
+                                $this->render('coursDetails',compact('objWhiteCours','categorie'));
+
+                        }
+
         }else if(isset($_GET['sousCat'])){
-            $categories=$this->metier->getSousCategorieByYearAndTypeWhiteCours($annee,$type);
-            $objWhiteCours=$categories[$_GET['sousCat']];
-            $this->render('coursDetails',compact('objWhiteCours','anneeEtType'));
+                                         /*recup une SousCategorie*/
+                        $objWhiteCours= $categorie->getSousCategorie()[$_GET['sousCat']];
+                        $this->render('coursDetails',compact('objWhiteCours','categorie'));
         }else{
-            $this->render('tranche',compact('trancheAge','anneeEtType'));
+
+                        $this->render('tranche',compact('trancheAge','categorie'));
         }
     }
 

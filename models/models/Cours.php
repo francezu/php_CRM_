@@ -31,7 +31,7 @@ class Cours
     private $materiel;
 
     /**
-     * @var String
+     * @var array
      */
     private $prof;
 
@@ -49,9 +49,9 @@ class Cours
      */
     private $jour;
     /**
-     * @var array String
+     * @var array Dates
      */
-    private $date=[];
+    private $date;
 
     /**
      * @var array LigCommande
@@ -166,7 +166,7 @@ class Cours
     }
 
     /**
-     * @return String
+     * @return array
      */
     public function getProf()
     {
@@ -174,7 +174,7 @@ class Cours
     }
 
     /**
-     * @param String $prof
+     * @param array $prof
      */
     public function setProf($prof)
     {
@@ -230,7 +230,7 @@ class Cours
     }
 
     /**
-     * @return array
+     * @return array Dates
      */
     public function getDate()
     {
@@ -238,7 +238,7 @@ class Cours
     }
 
     /**
-     * @param array $date
+     * @param array Dates
      */
     public function setDate($date)
     {

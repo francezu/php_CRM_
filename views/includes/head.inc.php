@@ -6,22 +6,26 @@
 
 
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Plateau96 Admin</title>
       <!-- jQuery -->
     <script src="views/resource/js/jquery.js"></script>
 
    <!-- Include Mask plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.min.js"></script>
 
-    <!----  Creation de PDF----->
+    <!----  Creation de PDF
      <script src="https://rawgit.com/MrRio/jsPDF/master/dist/jspdf.min.js"></script>
      <script src="https://rawgit.com/simonbengtsson/jsPDF-AutoTable/master/dist/jspdf.plugin.autotable.js"></script>
     <!----/Creation de PDF----->
 
-   <!----  Creation de PDF
-      <script src="vue/resource/js/jspdf.min.js"></script>
-      <script src="vue/resource/js/jspdf.plugin.autotable.js"></script>
-   <!----    /Creation de PDF----->
+    <!----  Creation de PDF ----->
+      <script src="views/resource/js/jspdf.min.js"></script>
+      <script src="views/resource/js/jspdf.plugin.autotable.js"></script>
+    <!----    /Creation de PDF----->
+
+    <!----    Mon script pour  PDF----->
+      <script src="views/resource/js/myJavaScript.js"></script>
+    <!----    /Mon script pour  PDF----->
 
 
  <!-- Bootstrap Core CSS -->

@@ -170,6 +170,20 @@ class DaoFactory
         return new TrancheDAO(self::getInstanceDaoFactory()->getInstancePDO());
 
     }
+    public function getProfDAO(){
+        /**
+         * injection de la dependence Dpdo
+         */
+        return new ProfDAO(self::getInstanceDaoFactory()->getInstancePDO());
+
+    }
+    public function getDatesDAO(){
+        /**
+         * injection de la dependence Dpdo
+         */
+        return new DatesDAO(self::getInstanceDaoFactory()->getInstancePDO());
+
+    }
 
 
 

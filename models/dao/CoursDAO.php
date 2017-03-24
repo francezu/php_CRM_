@@ -79,10 +79,15 @@ class CoursDao
 
 
         $ligCommandeDao=DaoFactory::getInstanceDaoFactory()->getLigCommandeDAO();
+        $profs=DaoFactory::getInstanceDaoFactory()->getProfDAO();
+        $dates=DaoFactory::getInstanceDaoFactory()->getDatesDAO();
         /*on a besoin de chaque ligne de la commande où l'id participant correspond  avec l'id cours*/
         for($i=0;$i<count($cours);$i++){
+            /*recup le/les prof(s)*/
+             $cours[$i]->setProf($profs->getProfByCours($cours[$i]->getId()));
+             $cours[$i]->setDate($dates->getDatesByIdCours($cours[$i]->getId()));
             /*on recup les lignes commande corespondant au cours avec obj Commande et Participant*/
-            $lignes=$ligCommandeDao->getGetAllByIdCoursWhiteCommandeAndParticipant($cours[$i]->getId());
+             $lignes=$ligCommandeDao->getGetAllByIdCoursWhiteCommandeAndParticipant($cours[$i]->getId());
                /*on ajoute les participants ou cours*/
                $cours[$i]->setLigCommande($lignes);
                /*car si non les valeurs vont êtré seulment ramplacer */

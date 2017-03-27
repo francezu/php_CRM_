@@ -48,6 +48,12 @@ class PostController extends AppController
         }
     }
 
+    public function updateDataBase(){
+        $id=$_POST['id'];
+        $etat=$_POST['new_value'];
+     echo  $this->metier->updateEtatPaiement($id,$etat);
+    }
+
     public function preparts2016(){
     }
     public function  anniversaireCreatifs(){

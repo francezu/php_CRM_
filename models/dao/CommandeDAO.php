@@ -25,7 +25,7 @@ class CommandeDAO
                       FROM Commande
                       WHERE idCommande=? ;";
 
-    const sqlUpdate="";
+    const sqlUpdatePaiement="UPDATE Commande SET confCommande=:confCommande WHERE idCommande=:idCommande;";
 
     const sqlDeleteArt = "DELETE FROM Commande  where idCommande=?";
 
@@ -38,7 +38,6 @@ class CommandeDAO
         $this->pdo = $pdo;
     }
 
-
     public function getGetById($id){
 
         $req=$this->pdo->prepare(self::sqlGetById);
@@ -46,6 +45,14 @@ class CommandeDAO
         $req->execute(array($id));
         $result=$req->fetch();
         return $result;
+    }
+
+    public function updateEtatPaiement($id,$confCommande){
+        $req=$this->pdo->prepare(self::sqlUpdatePaiement);
+        $req->bindValue(':idCommande',$id);
+        $req->bindValue(':confCommande',$confCommande);
+        $reponse=$req->execute();
+        return $reponse;
     }
 
 }

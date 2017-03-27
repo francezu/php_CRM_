@@ -6,12 +6,12 @@
 
 $(document).ready(function(){
 
+    /*pour chaque tableau on appele la function countParticipants()*/
         for(var i=0;i<php_var;i++){
-            countInscription(i);
+            countParticipants(i);
         }
-
         /*reçoit id de la table et calcule les participant en excluant ce qui on annulé*/
-        function countInscription(id){
+        function countParticipants(id){
             var table = document.getElementById('table_'+id);
             var numParticipants=0;
             for(var i=0;i<table.tBodies[0].rows.length;i++){
@@ -22,7 +22,6 @@ $(document).ready(function(){
            console.log(numParticipants);
             document.querySelector('#n_participants_'+id).innerHTML=numParticipants;
         }
-
 
 
     $('.PrintPDF').on('click',function(){
@@ -86,6 +85,11 @@ $(document).ready(function(){
         }
     });
 
+
+
+    /**
+     * TODO
+     */
     $('.presence').on('click',function(){
         var id = $(this).attr('id');
         var table = document.getElementsByTagName('table')[id];

@@ -15,7 +15,6 @@ class Metier
         $this->fabrique=\DaoFactory::getInstanceDaoFactory();
     }
 
-
     /**
      * @param $annee
      * @param $type
@@ -24,7 +23,6 @@ class Metier
     public function getCategorie($annee, $type){
         return $this->fabrique->getCategorieDAO()->getCategorieById($annee,$type);
     }
-
 
     /**
      * @param $annee
@@ -52,4 +50,8 @@ class Metier
         return $trancheAge;
     }
 
+
+    public function updateEtatPaiement($id,$etat){
+     return $this->fabrique->getCommandeDAO()->updateEtatPaiement($id,$etat);
+    }
 }

@@ -19,39 +19,50 @@ use Controller\PostController;
  * link : https://www.grafikart.fr/formations/programmation-objet-php/tp-structure
  */
 
-if(!isset($_GET['page'])){
-    $page="accueil";
-}else{
-    $page=$_GET['page'];
-}
-
+/*Detection si c'est un POST ou GET*/
+$method = $_SERVER['REQUEST_METHOD'];
+/**/
 $ctr=new Controller\PostController();
-ob_start();
-switch ($page){
-    case ("accueil"):{
-       $ctr->accueil();
-        break;
-    }
-    case("anniversaire_creatifs/anniversaire_creatifs"):{
-        $ctr->anniversaireCreatifs();
-        break;
-    }
-    case("atAndSt"):{
-        $ctr->ateliersAndStages();
-        break;
-    }
-    default:{
-        $ctr->accueil();
-        break;
-    }
+
+if($method==='GET'){
+        if(!isset($_GET['page'])){
+            $page="accueil";
+        }else{
+            $page=$_GET['page'];
+        }
+
+        ob_start();
+        switch ($page){
+            case ("accueil"):{
+                $ctr->accueil();
+                break;
+            }
+            case("anniversaire_creatifs/anniversaire_creatifs"):{
+                $ctr->anniversaireCreatifs();
+                break;
+            }
+            case("atAndSt"):{
+                $ctr->ateliersAndStages();
+                break;
+            }
+            default:{
+                $ctr->accueil();
+                break;
+            }
+        }
+        $content=ob_get_clean();
+        /**
+         * le $content on va l'afficher dans le template
+         */
+        require('views/templates/default.php');
+
+}else if($method==='POST'){
+    $ctr->updateDataBase();
+}else{
+
 }
-$content=ob_get_clean();
 
 
-/**
- * le $content on va l'afficher dans le template
- */
-require('views/templates/default.php');
 
 
 ?>

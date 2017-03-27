@@ -85,20 +85,23 @@ for($i=0;$i<count($cours);$i++){
             for($j=0;$j<count($ligCommande);$j++){
                                                            /*des couleurs en function de l'état du paiement*/
                             if($ligCommande[$j]->getCommande()->getConfCommande()=='ok'||$ligCommande[$j]->getCommande()->getConfCommande()=='online'){
-                                                                              echo'<tr class="success" >';
-                                                                              $divPanel='<div class="panel panel-green">';
+                                                                              echo'<tr class="success" 
+                                                                                       id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-green"  id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
                             }
                             else if($ligCommande[$j]->getCommande()->getConfCommande()=='annule'){
-                                                                              echo'<tr class="danger" >';
-                                                                              $divPanel='<div class="panel panel-red">';
+                                                                              echo'<tr class="danger"  
+                                                                                      id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-red"  id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
                             }
                             else if($ligCommande[$j]->getCommande()->getConfCommande()=='okpv'){
-                                                                              echo'<tr class="warning" >';
-                                                                              $divPanel='<div class="panel panel-warning">';
+                                                                              echo'<tr class="warning" 
+                                                                                       id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-warning" id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
                             }
                             else{
-                                                                              echo'<tr>';
-                                                                              $divPanel='<div class="panel panel-default">';
+                                                                              echo'<tr  id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-default"  id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
                             }
 
 
@@ -116,9 +119,20 @@ for($i=0;$i<count($cours);$i++){
                             echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getTel2().'</td>';
                             echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getEmail().'</td>';
                             echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getProfil()->getPhoto().'</td>';
-                            echo '<td>'.$ligCommande[$j]->getCommande()->getConfCommande().'</td>';
-
-                            echo' </tr>';
+                            echo '<td id="'.$ligCommande[$j]->getCommande()->getId().'"  class="edit_td">
+                                  <span class="text" 
+                                        id="span_'.$ligCommande[$j]->getCommande()->getId().'">'.$ligCommande[$j]->getCommande()->getConfCommande().'</span>
+                                  <select name="select"  
+                                          style="display:none"  
+                                          class="form-control editbox" 
+                                          id="input_'.$ligCommande[$j]->getCommande()->getId().'">
+                                                 <option value=""></option>
+                                                 <option class="bg-success" value="ok">ok</option> 
+                                                 <option class="bg-success" value="online">online</option>
+                                                 <option class="bg-warning" value="okpv">okpv</option>
+                                                 <option class="bg-danger" value="annule">annule</option>
+                                  </select>
+                                 </td>';
 
         /*Modale */
         echo '<div class="modal fade" id="'.$ligCommande[$j]->getParticipant()->getId().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

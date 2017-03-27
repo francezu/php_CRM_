@@ -27,6 +27,10 @@
       <script src="views/resource/js/myJavaScript.js"></script>
     <!----    /Mon script pour  PDF----->
 
+     <!----    Update Data Base AJAX----->
+     <script src="views/resource/js/myAjax.js"></script>
+     <!----    /Update Data Base AJAX----->
+
 
  <!-- Bootstrap Core CSS -->
     <link href="views/resource/css/bootstrap.min.css" rel="stylesheet">

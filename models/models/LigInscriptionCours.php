@@ -21,7 +21,7 @@ class LigInscriptionCours
      */
     private $participant;
     /**
-     * @var int
+     * @var Cours
      */
     private $cours;
 
@@ -32,12 +32,12 @@ class LigInscriptionCours
      * @param Participant $participant
      * @param int $cours
      */
-    public function __construct(InscriptionCours $inscriptionCours, $numLig, Participant $participant, $cours)
+    public function __construct(InscriptionCours $inscCours, $numLig, Participant $p,Cours $c)
     {
-        $this->inscriptionCours = $inscriptionCours;
+        $this->inscriptionCours = $inscCours;
         $this->numLig = $numLig;
-        $this->participant = $participant;
-        $this->cours = $cours;
+        $this->participant = $p;
+        $this->cours = $c;
     }
 
     /**

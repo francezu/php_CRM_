@@ -109,24 +109,4 @@ class CategorieDao
     }
 
 
-    /**
-     * @param $annee
-     * @param $type
-     * @return array Cours avec LigCommande,Commande,Participant
-     */
-    public function getListCoursByCategorie($annee, $type){
-        $categorie=$this->getCategorieById($annee, $type);
-        $listCours=$categorie->getCours();
-        if($categorie->getSousCategorie()!=null){
-            for($i=0;$i<count($categorie->getSousCategorie());$i++){
-                /*fusion array*/
-                $listCours=array_merge($listCours,$categorie->getSousCategorie()[$i]->getCours());
-            }
-        }
-        return $listCours;
-    }
-
-
-
-
 }

@@ -29,22 +29,36 @@ class Metier
      * @param $categorie
      * @return  array Tranche avec les Cours
      */
-    public function getCoursByTrancheAge($annee, $categorie)
+    public function getCoursByTrancheAge($annee, $type)
     {
-        $categorieDAO = $this->fabrique->getCategorieDAO();
-        $cours = $categorieDAO->getListCoursByCategorie($annee, $categorie);
+
+        /*recup categorie avec Sous categorie et Cours ....*/
+        $categorie=$this->getCategorie($annee, $type);
+
+
+        /* liste avec les  Cours de chaque Categorie et SousCategorie*/
+        $listCours=$categorie->getCours();
+        if($categorie->getSousCategorie()!=null){
+            for($i=0;$i<count($categorie->getSousCategorie());$i++){
+                /*fusion array*/
+                $listCours=array_merge($listCours,$categorie->getSousCategorie()[$i]->getCours());
+            }
+        }
+
+        /*Les tranche d'age*/
         $trancheDAO = $this->fabrique->getTrancheDAO();
         $trancheAge = $trancheDAO->getListe();
 
+        /*Rajout Cours pour chaque tranche d'age*/
         for ($j = 0; $j < count($trancheAge); $j++) {
             $tmp = [];
-            for ($i = 0; $i < count($cours); $i++) {
-                if ($cours[$i]->getTrancheAge() == $trancheAge[$j]->getId()) {
-                    $tmp[] = $cours[$i];
+            for ($i = 0; $i < count($listCours); $i++) {
+                if ($listCours[$i]->getTrancheAge() == $trancheAge[$j]->getId()) {
+                    $tmp[] = $listCours[$i];
                 }
             }
             $trancheAge[$j]->setCours($tmp);
-
+            /* destruction de la variable*/
             unset($tmp);
         }
         return $trancheAge;
@@ -52,6 +66,6 @@ class Metier
 
 
     public function updateEtatPaiement($id,$etat){
-     return $this->fabrique->getCommandeDAO()->updateEtatPaiement($id,$etat);
+     return $this->fabrique->getInscriptionCoursDAO()->updateEtatPaiement($id,$etat);
     }
 }

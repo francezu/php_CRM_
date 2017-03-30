@@ -75,22 +75,22 @@ class Cours
 
 
 
-    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null,$trancheAge=null,$categorieCours=null, array $ligInscriptionCours=null, $prix=null,$id=null)
+    public function __construct($code=null, $nom=null, $desc=null, $materiel=null, $prof=null, $hD=null,$hF=null, $j=null, array $date=null,$tAge=null,$catCours=null, array $ligInscCours=null, $prix=null,$id=null)
     {
         !is_null($id)?$this->id = $id:null;
         !is_null($code)?$this->code = $code:null;
         !is_null($nom)?$this->nom = $nom:null;
-        !is_null($description)?$this->description = $description:null;
+        !is_null($desc)?$this->description = $desc:null;
         !is_null($materiel)?$this->materiel = $materiel:null;
         !is_null($prof)?$this->prof = $prof:null;
-        !is_null($heureD)?$this->heureD = $heureD:null;
-        !is_null($heureF)?$this->heureF = $heureF:null;
-        !is_null($jour)?$this->jour = $jour:null;
+        !is_null($hD)?$this->heureD = $hD:null;
+        !is_null($hF)?$this->heureF = $hF:null;
+        !is_null($j)?$this->jour = $j:null;
         !is_null($date)?$this->date = $date:null;
-        !is_null($ligInscriptionCours)?$this->ligInscriptionCours = $ligInscriptionCours:null;
+        !is_null($ligInscCours)?$this->ligInscriptionCours = $ligInscCours:null;
         !is_null($prix)?$this->prix = $prix:null;
-        !is_null($trancheAge)?$this->trancheAge = $trancheAge:null;
-        !is_null($categorieCours)?$this->categorieCours= $categorieCours:null;
+        !is_null($tAge)?$this->trancheAge = $tAge:null;
+        !is_null($catCours)?$this->categorieCours= $catCours:null;
     }
 
 

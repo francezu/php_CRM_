@@ -47,6 +47,14 @@ class CoursDao
         $this->pdo = $pdo;
     }
 
+    public function  getCoursById($id){
+        $req=$this->pdo->prepare(self::sqlGetById);
+        $req->setFetchMode(PDO::FETCH_CLASS,Cours::class);
+        $req->execute(array($id));
+        $cours=$req->fetch();
+        return $cours;
+    }
+
     /**
      * @param $annee int
      * @param $categorie string

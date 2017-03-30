@@ -7,7 +7,7 @@
  * Time: 10:06
  */
 
-class DaoFactory
+class DaoFactory implements IDaoFactory
 {
     private $db_name;
     /**

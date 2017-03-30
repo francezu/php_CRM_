@@ -22,7 +22,7 @@ $cours=$objWhiteCours->getCours();
             </li>
             <?php
              if($objWhiteCours instanceof Categorie){
-                 echo '<li><i class="fa fa-dashboard"></i><a href="?page=atAndSt&type='.$_GET["type"].'&year='.$_GET["year"].'&ta=2"> Sous Categories</a></li>';
+                 echo '<li><i class="fa fa-dashboard"></i><a href="?page=atAndSt&type='.$_GET["type"].'&year='.$_GET["year"].'&ta=2"> Adults et Ados</a></li>';
                  echo '<li class="active"> <i class="fa fa-table"></i> '.$objWhiteCours->getNomCategorie().'</li>';
              }else{
                  echo '<li class="active"> <i class="fa fa-table"></i> '.$objWhiteCours->getNom().'</li>';
@@ -39,7 +39,7 @@ $cours=$objWhiteCours->getCours();
 echo '<section class="row">';
 for($i=0;$i<count($cours);$i++){
     /*ligne commande avec details commande et le participant*/
-    $ligCommande=$cours[$i]->getLigCommande();
+    $ligInscriptionCours=$cours[$i]->getLigInscriptionCours();
 
     /*2 article par ligne*/
     if($i%2==0 && $i!=0) {echo '</section><section class="row">';}
@@ -61,7 +61,7 @@ for($i=0;$i<count($cours);$i++){
              echo '</p>';
         echo '<p><button type="button" class="btn btn-sm btn-info presence" id="$i">Presence</button>';
         echo ' <button type="button" class="btn btn-sm btn-primary PrintPDF" id="'.$i.'">PDF</button> ';
-        echo ' <span style="color: blue" >Inscriptions : '.count($cours[$i]->getLigCommande()).'</span> ';
+        echo ' <span style="color: blue" >Inscriptions : '.count($cours[$i]->getLigInscriptionCours()).'</span> ';
         echo ' <strong class="bg-info" > Participants :<span id="n_participants_'.$i.'"></span></strong></p>';
 
 
@@ -82,60 +82,60 @@ for($i=0;$i<count($cours);$i++){
                           </thead><tbody>';
 
              /*On complete les lignes du tableau*/
-            for($j=0;$j<count($ligCommande);$j++){
+            for($j=0;$j<count($ligInscriptionCours);$j++){
                                                            /*des couleurs en function de l'état du paiement*/
-                            if($ligCommande[$j]->getCommande()->getConfCommande()=='ok'||$ligCommande[$j]->getCommande()->getConfCommande()=='online'){
+                            if($ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement()=='ok'||$ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement()=='online'){
                                                                               echo'<tr class="success" 
-                                                                                       id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
-                                                                              $divPanel='<div class="panel panel-green"  id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                                       id="tr_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-green"  id="panel_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
                             }
-                            else if($ligCommande[$j]->getCommande()->getConfCommande()=='annule'){
+                            else if($ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement()=='annule'){
                                                                               echo'<tr class="danger"  
-                                                                                      id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
-                                                                              $divPanel='<div class="panel panel-red"  id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                                      id="tr_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-red"  id="panel_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
                             }
-                            else if($ligCommande[$j]->getCommande()->getConfCommande()=='okpv'){
+                            else if($ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement()=='okpv'){
                                                                               echo'<tr class="warning" 
-                                                                                       id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
-                                                                              $divPanel='<div class="panel panel-warning" id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                                       id="tr_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-warning" id="panel_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
                             }
                             else{
-                                                                              echo'<tr  id="tr_'.$ligCommande[$j]->getCommande()->getId().'">';
-                                                                              $divPanel='<div class="panel panel-default"  id="panel_'.$ligCommande[$j]->getCommande()->getId().'">';
+                                                                              echo'<tr  id="tr_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
+                                                                              $divPanel='<div class="panel panel-default"  id="panel_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">';
                             }
 
 
                             echo'<td><button type="button" 
                                              class="btn btn-primary btn-sm" 
                                              data-toggle="modal" 
-                                             data-target="#'.$ligCommande[$j]->getParticipant()->getId().'"
-                                             >'.$ligCommande[$j]->getParticipant()->getId().'</button>
+                                             data-target="#'.$ligInscriptionCours[$j]->getParticipant()->getId().'"
+                                             >'.$ligInscriptionCours[$j]->getParticipant()->getId().'</button>
                                  </td>';
-                            echo '<td>'.date("d/m/Y", strtotime($ligCommande[$j]->getCommande()->getDateInscrption())).'</td>';
-                            echo '<td>'.$ligCommande[$j]->getParticipant()->getNom().'</td>';
-                            echo '<td>'.$ligCommande[$j]->getParticipant()->getPrenom().'</td>';
-                            echo '<td style="display: none">'.date("d/m/Y", strtotime($ligCommande[$j]->getParticipant()->getDateNaissance())).'</td>';
-                            echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getTel1().'</td>';
-                            echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getTel2().'</td>';
-                            echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getEmail().'</td>';
-                            echo '<td style="display: none">'.$ligCommande[$j]->getParticipant()->getProfil()->getPhoto().'</td>';
-                            echo '<td id="'.$ligCommande[$j]->getCommande()->getId().'"  class="edit_td">
-                                  <span class="text" 
-                                        id="span_'.$ligCommande[$j]->getCommande()->getId().'">'.$ligCommande[$j]->getCommande()->getConfCommande().'</span>
-                                  <select name="select"  
-                                          style="display:none"  
-                                          class="form-control editbox" 
-                                          id="input_'.$ligCommande[$j]->getCommande()->getId().'">
-                                                 <option value=""></option>
-                                                 <option class="bg-success" value="ok">ok</option> 
-                                                 <option class="bg-success" value="online">online</option>
-                                                 <option class="bg-warning" value="okpv">okpv</option>
-                                                 <option class="bg-danger" value="annule">annule</option>
-                                  </select>
+                            echo '<td>'.date("d/m/Y", strtotime($ligInscriptionCours[$j]-> getInscriptionCours()->getDateInscrption())).'</td>';
+                            echo '<td>'.$ligInscriptionCours[$j]->getParticipant()->getNom().'</td>';
+                            echo '<td>'.$ligInscriptionCours[$j]->getParticipant()->getPrenom().'</td>';
+                            echo '<td style="display: none">'.date("d/m/Y", strtotime($ligInscriptionCours[$j]->getParticipant()->getDateNaissance())).'</td>';
+                            echo '<td style="display: none">'.$ligInscriptionCours[$j]->getParticipant()->getTel1().'</td>';
+                            echo '<td style="display: none">'.$ligInscriptionCours[$j]->getParticipant()->getTel2().'</td>';
+                            echo '<td style="display: none">'.$ligInscriptionCours[$j]->getParticipant()->getEmail().'</td>';
+                            echo '<td style="display: none">'.$ligInscriptionCours[$j]->getParticipant()->getProfil()->getPhoto().'</td>';
+                            echo '<td id="'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'"  class="edit_td">
+                                      <span class="text" 
+                                            id="span_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">'.$ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement().'</span>
+                                      <select name="select"  
+                                              style="display:none"  
+                                              class="form-control editbox" 
+                                              id="input_'.$ligInscriptionCours[$j]-> getInscriptionCours()->getId().'">
+                                                     <option value=""></option>
+                                                     <option class="bg-success" value="ok">ok</option> 
+                                                     <option class="bg-success" value="online">online</option>
+                                                     <option class="bg-warning" value="okpv">okpv</option>
+                                                     <option class="bg-danger"  value="annule">annule</option>
+                                      </select>
                                  </td>';
 
         /*Modale */
-        echo '<div class="modal fade" id="'.$ligCommande[$j]->getParticipant()->getId().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        echo '<div class="modal fade" id="'.$ligInscriptionCours[$j]->getParticipant()->getId().'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -149,39 +149,39 @@ for($i=0;$i<count($cours);$i++){
                                                 <div class="col-xs-12 col-lg-12">'.$divPanel.
 
                                                '<div class="panel-heading">
-                                                    <h3 class="panel-title text-center">'.$ligCommande[$j]->getParticipant()->getId().' <strong>'
-                                                                                         .$ligCommande[$j]->getParticipant()->getNom().' '
-                                                                                         .$ligCommande[$j]->getParticipant()->getPrenom().'</strong></h3>
+                                                    <h3 class="panel-title text-center">'.$ligInscriptionCours[$j]->getParticipant()->getId().' <strong>'
+                                                                                         .$ligInscriptionCours[$j]->getParticipant()->getNom().' '
+                                                                                         .$ligInscriptionCours[$j]->getParticipant()->getPrenom().'</strong></h3>
                                                 </div>
                                                 <div class="panel-body">
-                                                        <p><strong>ID : </strong>' .$ligCommande[$j]->getParticipant()->getId(). '<p>
-                                                        <p><strong>Date d\'inscription: </strong>' . date("d-m-Y", strtotime($ligCommande[$j]->getCommande()->getDateInscrption())).'<p>
-                                                        <p><strong>Nom : </strong>' .$ligCommande[$j]->getParticipant()->getNom().'<p>
-                                                        <p><strong>Prenom : </strong>'.$ligCommande[$j]->getParticipant()->getPrenom().'<p>
-                                                        <p><strong>Date de naissance : </strong>'.date("d-m-Y", strtotime($ligCommande[$j]->getParticipant()->getDateNaissance())).'<p>';
+                                                        <p><strong>ID : </strong>' .$ligInscriptionCours[$j]->getParticipant()->getId(). '<p>
+                                                        <p><strong>Date d\'inscription: </strong>' . date("d-m-Y", strtotime($ligInscriptionCours[$j]-> getInscriptionCours()->getDateInscrption())).'<p>
+                                                        <p><strong>Nom : </strong>' .$ligInscriptionCours[$j]->getParticipant()->getNom().'<p>
+                                                        <p><strong>Prenom : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getPrenom().'<p>
+                                                        <p><strong>Date de naissance : </strong>'.date("d-m-Y", strtotime($ligInscriptionCours[$j]->getParticipant()->getDateNaissance())).'<p>';
 
                                      /*Si le Participant a un Responsable on affiche les champs*/
-                                  if(!empty($ligCommande[$j]->getParticipant()->getResponsables())){
-                                      for($z=0;$z<count($ligCommande[$j]->getParticipant()->getResponsables());$z++){
+                                  if(!empty($ligInscriptionCours[$j]->getParticipant()->getResponsables())){
+                                      for($z=0;$z<count($ligInscriptionCours[$j]->getParticipant()->getResponsables());$z++){
 
                                           echo         '<hr class="featurette-divider"/>
-                                                        <p><strong>Nom Responsable: </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getNom().'</p>
-                                                        <p><strong>Prenom Responsable : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getPrenom().'</p>
-                                                        <p><strong>Adresse : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getRueN().'</p>
-                                                        <p><strong>Ville : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getVille().'</p>
-                                                        <p><strong>Code : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getCode().'</p>
-                                                        <p><strong>Tel : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getTel1().'</p>
-                                                        <p><strong>Tel2 : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getTel2().'</p>
-                                                        <p><strong>E-mail : </strong>'.$ligCommande[$j]->getParticipant()->getResponsables()[$z]->getEmail().'</p>';
+                                                        <p><strong>Nom Responsable: </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getNom().'</p>
+                                                        <p><strong>Prenom Responsable : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getPrenom().'</p>
+                                                        <p><strong>Adresse : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getRueN().'</p>
+                                                        <p><strong>Ville : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getVille().'</p>
+                                                        <p><strong>Code : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getCode().'</p>
+                                                        <p><strong>Tel : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getTel1().'</p>
+                                                        <p><strong>Tel2 : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getTel2().'</p>
+                                                        <p><strong>E-mail : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getResponsables()[$z]->getEmail().'</p>';
                                       }
                                   }
         echo                                           '<hr class="featurette-divider"/>
-                                                        <p><strong>Message : </strong>'.$ligCommande[$j]->getCommande()->getMsg().'</p>
-                                                        <p><strong>Newsletter : </strong>'.$ligCommande[$j]->getParticipant()->getProfil()->getNewsletter().'</p>
-                                                        <p><strong>Photo : </strong>'.$ligCommande[$j]->getParticipant()->getProfil()->getPhoto().'</p>
-                                                        <p><strong>Confirmation Paiement: </strong>'.$ligCommande[$j]->getCommande()->getConfCommande().'</p>
-                                                        <p><strong>Total : </strong>'.$ligCommande[$j]->getCommande()->getTotal().'</p>
-                                                        <p><strong>Modalité de paiement : </strong>' .$ligCommande[$j]->getCommande()->isEtalmentPaiement(). '</p>
+                                                        <p><strong>Message : </strong>'.$ligInscriptionCours[$j]-> getInscriptionCours()->getMsg().'</p>
+                                                        <p><strong>Newsletter : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getProfil()->getNewsletter().'</p>
+                                                        <p><strong>Photo : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getProfil()->getPhoto().'</p>
+                                                        <p><strong>Confirmation Paiement: </strong>'.$ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement().'</p>
+                                                        <p><strong>Total : </strong>'.$ligInscriptionCours[$j]-> getInscriptionCours()->getTotal().'</p>
+                                                        <p><strong>Modalité de paiement : </strong>' .$ligInscriptionCours[$j]-> getInscriptionCours()->isEtalmentPaiement(). '</p>
                                                         </div>
                                                     </div>
                                                 </div>

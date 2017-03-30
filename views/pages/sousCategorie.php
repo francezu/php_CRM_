@@ -17,7 +17,7 @@ echo'<section class="row">
               </li>
                <li class="active">
                  <i class="fa fa-dashboard"></i>
-                 Sous Categorie
+                 Adultes et Ados
               </li>
             </ol>
             
@@ -34,7 +34,7 @@ for($i=0;$i<count($categorie->getSousCategorie());$i++){
     /*On va parcourir chaque cours */
     for($j=0; $j<count($cours); $j++){
         /*compter le nombre des Lignes Client pour chaque cours*/
-        $nbLigneParCategorie += count($cours[$j]->getLigCommande());
+        $nbLigneParCategorie += count($cours[$j]->getLigInscriptionCours());
     }
     echo '<article class="col-xl-12 col-md-6 col-lg-4">
                 <div class="col-lg-12 col-md-12">

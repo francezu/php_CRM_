@@ -9,23 +9,73 @@
 class InscriptionCours extends Inscription
 {
     /**
-     * @var Cours
+     * @var LigInscriptionCours
      */
-    protected $cours=[];
+    protected $ligInscriptionCours;
 
     /**
-     * @return mixed
+     * @var    bool
      */
-    public function getCours()
+    private $etalmentPaiement;
+
+    /**
+     * InscriptionCours constructor.
+     * @param int $id
+     * @param Date $date
+     * @param String $msg
+     * @param float $total
+     * @param bool $etalmentPaiement
+     * @param bool $paiementOnline
+     * @param String $confCommande
+     * @param String $note
+     * @param bool $garderie
+     */
+    public function __construct($dateInscrption=null, $total=null, $etalmentPaiement=null, $paiementOnline=null, $msg=null, $statutPaiement=null, $note=null, $garderie=null,$id=null)
     {
-        return $this->cours;
+        !is_null($etalmentPaiement)?$this->etalmentPaiement = $etalmentPaiement:null;
+        parent::__construct($dateInscrption=null, $total=null, $paiementOnline=null, $msg=null, $statutPaiement=null, $note=null, $garderie=null,$id=null);
     }
 
     /**
-     * @param mixed $cours
+     * @return LigInscriptionCours
      */
-    public function setCours($cours)
+    public function getLigInscriptionCours()
     {
-        $this->cours[] = $cours;
+        return $this->ligInscriptionCours;
     }
+
+    /**
+     * @param LigInscriptionCours $ligInscriptionCours
+     */
+    public function setLigInscriptionCours($ligInscriptionCours)
+    {
+        $this->ligInscriptionCours = $ligInscriptionCours;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEtalmentPaiement()
+    {
+        return $this->etalmentPaiement;
+    }
+
+    /**
+     * @param bool $etalmentPaiement
+     */
+    public function setEtalmentPaiement($etalmentPaiement)
+    {
+        $this->etalmentPaiement = $etalmentPaiement;
+    }
+
+    public function calcTotal(){
+        $total=0;
+        foreach ($this->ligInscriptionCours as $lig){
+            $total+=$lig->getCours()->getPrix();
+        }
+        return $total;
+    }
+
+
+
 }

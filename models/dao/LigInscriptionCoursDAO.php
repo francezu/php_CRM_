@@ -6,7 +6,7 @@
  * Date: 21-Feb-17
  * Time: 11:10
  */
-class LigCommandeDao
+class LigInscriptionCoursDao
 {
 
     private $pdo;
@@ -49,16 +49,16 @@ class LigCommandeDao
         $result=$req->fetchAll();
 
         $participnatDAO=DaoFactory::getInstanceDaoFactory()->getParticipantDAO();
-        $commandeDAO=DaoFactory::getInstanceDaoFactory()->getCommandeDAO();
+        $inscriptionCoursDAO=DaoFactory::getInstanceDaoFactory()->getInscriptionCoursDAO();
 
         /* on cree l'obj LigCommande avec l'obj Participant et on l'ajoute a une array $lignes*/
          foreach ($result as $row ) {
              /*recuperation du Participant en function de l'id*/
             $participant=$participnatDAO->getFromId($row[2]);
              /*recuperation de la Commande en function de l'id*/
-            $commande=$commandeDAO->getGetById($row[2]);
+            $inscription=$inscriptionCoursDAO->getGetById($row[2]);
 
-            $lignes[]=new LigCommande($commande,$row[1],$participant,$row[3]);
+            $lignes[]=new LigInscriptionCours($inscription,$row[1],$participant,$row[3]);
          }
 
         /*dans le cas ou le cours n'a pas d'inscriptions*/

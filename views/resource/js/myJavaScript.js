@@ -15,7 +15,7 @@ $(document).ready(function(){
             var table = document.getElementById('table_'+id);
             var numParticipants=0;
             for(var i=0;i<table.tBodies[0].rows.length;i++){
-                if(table.tBodies[0].rows[i].cells[9].innerHTML!='annule'){
+                if(table.tBodies[0].rows[i].cells[9].firstElementChild.innerHTML!='annule'){
                     numParticipants=numParticipants+1;
                 }
             }
@@ -28,8 +28,9 @@ $(document).ready(function(){
         /* we take the id of the cours */
         var id=$(this).attr('id');
 
-        /* on copie la table dans une variable*/
-        var table = document.getElementById('table_'+id);
+        /* on copie la table dans une variable cloneNode(true) indique si on doit copier les enfants*/
+          var table = document.getElementById('table_'+id).cloneNode(true);
+
 
         /*affiche colones cache*/
         for(var i=5;i<10;i++){
@@ -37,17 +38,22 @@ $(document).ready(function(){
             $(table).find('td:nth-child('+i+')').show();
         }
 
-        /* on copie la table dans une variable*/
-        var table = document.getElementById('table_'+id);
+        for(var i=0;i<table.tBodies[0].rows.length;i++) {
+            /*on supprime le select avec les options de chaque TR pour le PDF*/
+            table.lastChild.rows[i].lastChild.lastElementChild.remove();
+        }
 
-
-        /*hide les participants annule*/
          for(var i=0;i<table.tBodies[0].rows.length;i++){
-           if(table.tBodies[0].rows[i].cells[9].innerHTML=='annule'){
-               table.tBodies[0].rows[i].style.display = 'none';
+             /*hide les participants annule*/
+           if(table.tBodies[0].rows[i].cells[9].firstElementChild.innerHTML=='annule'){
+               /*on ajoute une class au tr que on doit supprimer*/
+               /*imposible de cacher les elements d une clone*/
+              table.tBodies[0].rows[i].className +=' markedForRemoval';
            }
-
          }
+         /*supprimer les elements qui on la class markedForRemoval*/
+          $(table).find('.markedForRemoval').remove()
+
         var doc = new jsPDF('l', 'pt');
 
         var ateliers=$('#intitule_'+id).text();
@@ -88,7 +94,7 @@ $(document).ready(function(){
 
 
     /**
-     * TODO
+     * TODO fair les pressance
      */
     $('.presence').on('click',function(){
         var id = $(this).attr('id');

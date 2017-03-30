@@ -56,7 +56,7 @@ class Cours
     /**
      * @var array LigCommande
      */
-    private $ligCommande;
+    private $ligInscriptionCours;
     /**
      * @var double
      */
@@ -75,7 +75,7 @@ class Cours
 
 
 
-    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null,$trancheAge=null,$categorieCours=null, array $ligCommande=null, $prix=null,$id=null)
+    public function __construct($code=null, $nom=null, $description=null, $materiel=null, $prof=null, $heureD=null,$heureF=null, $jour=null, array $date=null,$trancheAge=null,$categorieCours=null, array $ligInscriptionCours=null, $prix=null,$id=null)
     {
         !is_null($id)?$this->id = $id:null;
         !is_null($code)?$this->code = $code:null;
@@ -87,7 +87,7 @@ class Cours
         !is_null($heureF)?$this->heureF = $heureF:null;
         !is_null($jour)?$this->jour = $jour:null;
         !is_null($date)?$this->date = $date:null;
-        !is_null($ligCommande)?$this->ligCommande = $ligCommande:null;
+        !is_null($ligInscriptionCours)?$this->ligInscriptionCours = $ligInscriptionCours:null;
         !is_null($prix)?$this->prix = $prix:null;
         !is_null($trancheAge)?$this->trancheAge = $trancheAge:null;
         !is_null($categorieCours)?$this->categorieCours= $categorieCours:null;
@@ -248,18 +248,20 @@ class Cours
     /**
      * @return array
      */
-    public function getLigCommande()
+    public function getLigInscriptionCours()
     {
-        return $this->ligCommande;
+        return $this->ligInscriptionCours;
     }
 
     /**
-     * @param array $ligCommande
+     * @param array $ligInscriptionCours
      */
-    public function setLigCommande($ligCommande)
+    public function setLigInscriptionCours($ligInscriptionCours)
     {
-        $this->ligCommande = $ligCommande;
+        $this->ligInscriptionCours = $ligInscriptionCours;
     }
+
+
 
     /**
      * @return float

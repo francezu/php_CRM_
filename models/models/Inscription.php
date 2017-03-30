@@ -9,63 +9,71 @@
 abstract class Inscription
 {
 
-    /**
-     * @var
-     */
     protected $nomForm;
-    /**
-     * @var
-     */
+
     protected $ref;
+
     /**
-     * @var
+     * @var int
      */
     protected $id;
-
     /**
-     * @var
+     * @var  Date
      */
-    protected $dateInscription;
+    protected $dateInscrption;
     /**
-     * @var
+     * @var String
      */
     protected $msg;
+
     /**
-     * @var
+     * @var bool
      */
-    private $total;
+    protected $paiementOnline;
     /**
-     * @var
+     * @var   String
      */
-    protected $modePaiement;
+    protected $statutPaiement;
+    /**
+     * @var String
+     */
+    protected $note;
+    /**
+     * @var bool
+     */
+    protected $garderie;
+
+    /**
+     * @var double
+     */
+    protected $total;
 
 
 
-
-    /**
-     * @var
-     */
-    private $garderie;
-    /**
-     * @var
-     */
-    protected $confirmationPaiement;
-    /**
-     * @var
-     */
-    private $note;
-    /**
-     * @var Participant
-     */
-    private $participant;
 
     /**
      * Inscription constructor.
+     * @param int $id
+     * @param Date $date
+     * @param String $msg
+     * @param float $total
+     * @param bool $etalmentPaiement
+     * @param bool $paiementOnline
+     * @param String $confCommande
+     * @param String $note
+     * @param bool $garderie
      */
-    public function __construct()
+    public function __construct($dateInscrption=null, $total=null, $paiementOnline=null, $msg=null, $statutPaiement=null, $note=null, $garderie=null,$id=null)
     {
+        !is_null($id)?$this->id = $id:null;
+        !is_null($dateInscrption)?$this->dateInscrption = $dateInscrption:null;
+        !is_null($msg)?$this->msg = $msg:null;
+        !is_null($total)?$this->total = $total:null;
+        !is_null($paiementOnline)?$this->paiementOnline = $paiementOnline:null;
+        !is_null($statutPaiement)?$this->statutPaiement = $statutPaiement:null;
+        !is_null($note)?$this->note = $note:null;
+        !is_null($garderie)?$this->garderie = $garderie:null;
     }
-
 
     /**
      * @return mixed
@@ -100,7 +108,7 @@ abstract class Inscription
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -108,33 +116,31 @@ abstract class Inscription
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
         $this->id = $id;
     }
 
-
-
     /**
-     * @return mixed
+     * @return Date
      */
-    public function getDateInscription()
+    public function getDateInscrption()
     {
-        return $this->dateInscription;
+        return $this->dateInscrption;
     }
 
     /**
-     * @param mixed $dateInscription
+     * @param Date $dateInscrption
      */
-    public function setDateInscription($dateInscription)
+    public function setDateInscrption($dateInscrption)
     {
-        $this->dateInscription = $dateInscription;
+        $this->dateInscrption = $dateInscrption;
     }
 
     /**
-     * @return mixed
+     * @return String
      */
     public function getMsg()
     {
@@ -142,7 +148,7 @@ abstract class Inscription
     }
 
     /**
-     * @param mixed $msg
+     * @param String $msg
      */
     public function setMsg($msg)
     {
@@ -150,70 +156,39 @@ abstract class Inscription
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getTotal()
+    public function isPaiementOnline()
     {
-        return $this->total;
+        return $this->paiementOnline;
     }
 
     /**
-     * @param mixed $total
+     * @param bool $paiementOnline
      */
-    public function setTotal($total)
+    public function setPaiementOnline($paiementOnline)
     {
-        $this->total = $total;
+        $this->paiementOnline = $paiementOnline;
     }
 
     /**
-     * @return mixed
+     * @return String
      */
-    public function getModePaiement()
+    public function getStatutPaiement()
     {
-        return $this->modePaiement;
+        return $this->statutPaiement;
     }
 
     /**
-     * @param mixed $modePaiement
+     * @param String $statutPaiement
      */
-    public function setModePaiement($modePaiement)
+    public function setStatutPaiement($statutPaiement)
     {
-        $this->modePaiement = $modePaiement;
-    }
-    /**
-     * @return mixed
-     */
-    public function getGarderie()
-    {
-        return $this->garderie;
+        $this->statutPaiement = $statutPaiement;
     }
 
     /**
-     * @param mixed $garderie
-     */
-    public function setGarderie($garderie)
-    {
-        $this->garderie = $garderie;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConfirmationPaiement()
-    {
-        return $this->confirmationPaiement;
-    }
-
-    /**
-     * @param mixed $confirmationPaiement
-     */
-    public function setConfirmationPaiement($confirmationPaiement)
-    {
-        $this->confirmationPaiement = $confirmationPaiement;
-    }
-
-    /**
-     * @return mixed
+     * @return String
      */
     public function getNote()
     {
@@ -221,7 +196,7 @@ abstract class Inscription
     }
 
     /**
-     * @param mixed $note
+     * @param String $note
      */
     public function setNote($note)
     {
@@ -229,20 +204,39 @@ abstract class Inscription
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getParticipant()
+    public function isGarderie()
     {
-        return $this->participant;
+        return $this->garderie;
     }
 
     /**
-     * @param mixed $participant
+     * @param bool $garderie
      */
-    public function setParticipant(Participant $participant)
+    public function setGarderie($garderie)
     {
-        $this->participant = $participant;
+        $this->garderie = $garderie;
     }
+
+    /**
+     * @return float
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * @param float $total
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    }
+
+
+
 
 
 

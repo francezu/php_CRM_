@@ -99,4 +99,9 @@ class Participant extends Personne
         $this->responsables = $responsables;
     }
 
+    public function addResponsables(Responsable $responsable){
+        $this->responsables[]=$responsable;
+    }
+
+
 }

@@ -22,8 +22,11 @@ $(document).ready(function(){
                 success: function(html)
                 {
                     $("#span_"+ID).html(new_value);
-                    if(new_value=="ok"||new_value=="online")
+                    if(new_value=="ok")
                     {
+                        $("#tr_"+ID).attr('class',"success");
+                        $("#panel_"+ID).attr('class',"panel panel-green");
+                    }else if(new_value=="online"){
                         $("#tr_"+ID).attr('class',"success");
                         $("#panel_"+ID).attr('class',"panel panel-green");
                     }

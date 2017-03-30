@@ -6,12 +6,12 @@
  * Date: 21-Feb-17
  * Time: 11:22
  */
-class LigCommande
+class LigInscriptionCours
 {
     /**
-     * @var Commande
+     * @var InscriptionCours
      */
-    private $commande;
+    private $inscriptionCours;
     /**
      * @var int
      */
@@ -32,29 +32,28 @@ class LigCommande
      * @param Participant $participant
      * @param int $cours
      */
-    public function __construct(Commande $commande, $numLig, Participant $participant, $cours)
+    public function __construct(InscriptionCours $inscriptionCours, $numLig, Participant $participant, $cours)
     {
-        $this->commande = $commande;
+        $this->inscriptionCours = $inscriptionCours;
         $this->numLig = $numLig;
         $this->participant = $participant;
         $this->cours = $cours;
     }
 
-
     /**
-     * @return int
+     * @return InscriptionCours
      */
-    public function getCommande()
+    public function getInscriptionCours()
     {
-        return $this->commande;
+        return $this->inscriptionCours;
     }
 
     /**
-     * @param int $commande
+     * @param InscriptionCours $inscriptionCours
      */
-    public function setCommande($commande)
+    public function setInscriptionCours($inscriptionCours)
     {
-        $this->commande = $commande;
+        $this->inscriptionCours = $inscriptionCours;
     }
 
     /**

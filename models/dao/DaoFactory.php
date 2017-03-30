@@ -149,18 +149,18 @@ class DaoFactory
         return new CoursDao(self::getInstanceDaoFactory()->getInstancePDO());
 
     }
-    public function getLigCommandeDAO(){
+    public function getLigInscriptionCoursDAO(){
         /**
          * injection de la dependence Dpdo
          */
-        return new LigCommandeDao(self::getInstanceDaoFactory()->getInstancePDO());
+        return new LigInscriptionCoursDao(self::getInstanceDaoFactory()->getInstancePDO());
 
     }
-    public function getCommandeDAO(){
+    public function getInscriptionCoursDAO(){
         /**
          * injection de la dependence Dpdo
          */
-        return new CommandeDao(self::getInstanceDaoFactory()->getInstancePDO());
+        return new InscriptionCoursDAO(self::getInstanceDaoFactory()->getInstancePDO());
 
     }
     public function getTrancheDAO(){

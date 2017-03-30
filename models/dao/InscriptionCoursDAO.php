@@ -3,10 +3,10 @@
 /**
  * Created by IntelliJ IDEA.
  * User: Tatar
- * Date: 21-Feb-17
- * Time: 11:14
+ * Date: 30-Mar-17
+ * Time: 11:31
  */
-class CommandeDAO
+class InscriptionCoursDAO
 {
 
     private $pdo;
@@ -19,13 +19,13 @@ class CommandeDAO
                                totalCommande as total ,
                                etalementPaiementCommande as etalmentPaiement,
                                paiementOnlineCommande as paiementOnline,
-                               confCommande as confCommande,
+                               confCommande as statutPaiement,
                                noteCommande as note,
                                garderieCommande as garderie
                       FROM Commande
                       WHERE idCommande=? ;";
 
-    const sqlUpdatePaiement="UPDATE Commande SET confCommande=:confCommande WHERE idCommande=:idCommande;";
+    const sqlUpdatePaiement="UPDATE Commande SET confCommande=:statutPaiement WHERE idCommande=:idCommande;";
 
     const sqlDeleteArt = "DELETE FROM Commande  where idCommande=?";
 
@@ -41,16 +41,16 @@ class CommandeDAO
     public function getGetById($id){
 
         $req=$this->pdo->prepare(self::sqlGetById);
-        $req->setFetchMode(PDO::FETCH_CLASS,Commande::class);
+        $req->setFetchMode(PDO::FETCH_CLASS,InscriptionCours::class);
         $req->execute(array($id));
         $result=$req->fetch();
         return $result;
     }
 
-    public function updateEtatPaiement($id,$confCommande){
+    public function updateEtatPaiement($id,$statutPaiement){
         $req=$this->pdo->prepare(self::sqlUpdatePaiement);
         $req->bindValue(':idCommande',$id);
-        $req->bindValue(':confCommande',$confCommande);
+        $req->bindValue(':statutPaiement',$statutPaiement);
         $reponse=$req->execute();
         return $reponse;
     }

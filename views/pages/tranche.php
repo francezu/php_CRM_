@@ -28,7 +28,7 @@ for($i=0;$i<count($trancheAge);$i++){
     $nbLigneParCategorie=0;
     for($j=0; $j<count($cours); $j++){
         /*compter le nombre des Lignes Client pour chaque cours*/
-        $nbLigneParCategorie += count($cours[$j]->getLigCommande());
+        $nbLigneParCategorie += count($cours[$j]->getLigInscriptionCours());
     }
     echo '<article class="col-xl-12 col-md-6 col-lg-4">
                 <div class="col-lg-12 col-md-12">               

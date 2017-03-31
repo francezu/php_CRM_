@@ -48,7 +48,7 @@ class PostController extends AppController
         }
     }
 
-    public function updateDataBase(){
+    public function updateStatutPaiement(){
         $id=$_POST['id'];
         $etat=$_POST['new_value'];
      echo  $this->metier->updateEtatPaiement($id,$etat);

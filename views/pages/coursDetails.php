@@ -154,11 +154,21 @@ for($i=0;$i<count($cours);$i++){
                                                                                          .$ligInscriptionCours[$j]->getParticipant()->getPrenom().'</strong></h3>
                                                 </div>
                                                 <div class="panel-body">
-                                                        <p><strong>ID : </strong>' .$ligInscriptionCours[$j]->getParticipant()->getId(). '<p>
+                                                        <p><strong>ID : </strong>' .$ligInscriptionCours[$j]->getParticipant()->getId().'<p>
                                                         <p><strong>Date d\'inscription: </strong>' . date("d-m-Y", strtotime($ligInscriptionCours[$j]-> getInscriptionCours()->getDateInscrption())).'<p>
-                                                        <p><strong>Nom : </strong>' .$ligInscriptionCours[$j]->getParticipant()->getNom().'<p>
+                                                      
+                                                        <p><strong>Nom : </strong>' .$ligInscriptionCours[$j]->getParticipant()->getNom().'</p>
+                                                        
                                                         <p><strong>Prenom : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getPrenom().'<p>
                                                         <p><strong>Date de naissance : </strong>'.date("d-m-Y", strtotime($ligInscriptionCours[$j]->getParticipant()->getDateNaissance())).'<p>';
+
+
+                                                 echo   '<p><strong>Rue : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getRueN().'</p>
+                                                         <p><strong>Ville : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getVille().'</p>
+                                                         <p><strong>Code : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getCode().'</p>
+                                                         <p><strong>Tel : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getTel1().'</p>
+                                                         <p><strong>Tel2 : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getTel2().'</p>
+                                                         <p><strong>E-mail : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getEmail().'</p>';
 
                                      /*Si le Participant a un Responsable on affiche les champs*/
                                   if(!empty($ligInscriptionCours[$j]->getParticipant()->getResponsables())){
@@ -180,8 +190,8 @@ for($i=0;$i<count($cours);$i++){
                                                         <p><strong>Newsletter : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getProfil()->getNewsletter().'</p>
                                                         <p><strong>Photo : </strong>'.$ligInscriptionCours[$j]->getParticipant()->getProfil()->getPhoto().'</p>
                                                         <p><strong>Confirmation Paiement: </strong>'.$ligInscriptionCours[$j]-> getInscriptionCours()->getStatutPaiement().'</p>
-                                                        <p><strong>Total : </strong>'.$ligInscriptionCours[$j]-> getInscriptionCours()->getTotal().'</p>
-                                                        <p><strong>Modalité de paiement : </strong>' .$ligInscriptionCours[$j]-> getInscriptionCours()->isEtalmentPaiement(). '</p>
+                                                        <p><strong>Total : </strong>'.$ligInscriptionCours[$j]-> getInscriptionCours()->getTotal().' €</p>
+                                                        <p><strong>Etalment du paiement : </strong>' .$ligInscriptionCours[$j]-> getInscriptionCours()->isEtalmentPaiement(). '</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -203,4 +213,5 @@ echo '</section>';
 <script type="text/javascript">
     /*avoir le nb des tableaux*/
     var php_var = "<?php echo $i; ?>";
+
 </script>

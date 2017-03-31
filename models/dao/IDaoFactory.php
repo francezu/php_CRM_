@@ -12,8 +12,8 @@ interface IDaoFactory
     public static function getInstanceDaoFactory();
 
     public function getInscriptionAnniversairesDAO();
-    public function  getParticipantDAO();
-    public function  getResponsableDAO();
+    public function getParticipantDAO();
+    public function getResponsableDAO();
     public function getProfilDAO();
     public function getCategorieDAO();
     public function getCoursDAO();

@@ -57,7 +57,7 @@ if($method==='GET'){
         require('views/templates/default.php');
 
 }else if($method==='POST'){
-    $ctr->updateDataBase();
+    $ctr->updateStatutPaiement();
 }else{
 
 }

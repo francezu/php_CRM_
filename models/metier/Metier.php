@@ -8,6 +8,9 @@
  */
 class Metier
 {
+    /**
+     * @var DaoFactory|instance
+     */
     protected $fabrique;
 
     public function __construct() {
@@ -65,7 +68,19 @@ class Metier
     }
 
 
-    public function updateEtatPaiement($id,$etat){
+    /**
+     * @param $id
+     * @param $etat
+     * @return bool
+     */
+    public function updateEtatPaiement($id, $etat){
      return $this->fabrique->getInscriptionCoursDAO()->updateEtatPaiement($id,$etat);
     }
+
+
+    public function  insertDataBase(){
+
+    }
+
+
 }

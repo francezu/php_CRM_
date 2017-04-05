@@ -11,10 +11,15 @@ class DatesDAO
 
     private  $pdo;
 
-    const sqlGetByIdCours="SELECT idDates as id,
+    const sqlGetById="SELECT idDates as id,
                                   descriptionDates as description 
-                                  FROM Dates WHERE FK_idCoursDates=?;";
+                                  FROM Dates WHERE idDates=?;";
 
+    const sqlGet="SELECT idDates as id,
+                          descriptionDates as description 
+                          FROM Dates ";
+
+    const sqlInsert="";
 
     const sqlUpdate="";
 
@@ -29,12 +34,20 @@ class DatesDAO
         $this->pdo = $pdo;
     }
 
-    public  function  getDatesByIdCours($idCours){
-        $req=$this->pdo->prepare(self::sqlGetByIdCours);
+    public function getDates($where="",$param=null,$FetchType=false){
+
+        $sql=self::sqlGet.$where;
+        $req=$this->pdo->prepare($sql);
         $req->setFetchMode(PDO::FETCH_CLASS,Dates::class);
-        $req->execute(array($idCours));
+        $req->execute($param);
         $dates=$req->fetchAll();
         return $dates;
+
+    }
+
+    public  function  getDatesByIdCours($idCours){
+
+        return $this->getDates('WHERE FK_idCoursDates=?',array($idCours),false);
 
     }
 

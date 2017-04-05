@@ -10,13 +10,17 @@ class ProfDAO
 {
     private  $pdo;
 
-    const sqlGetByIdCours="SELECT p.idProf as id,
-                                  p.nomProf as nom,
-                                  p.prenomProf as prenom
-                           FROM prof p RIGHT JOIN CoursProf cp ON p.idProf=cp.FK_idProf
-                           WHERE cp.FK_idCours=?;";
+    const sqlGetById="SELECT idProf as id,
+                                  nomProf as nom,
+                                  prenomProf as prenom
+                           FROM prof WHERE idProf=?";
 
-    const sqlGetAllProf="SELECT * FROM Prof;";
+    const sqlGet="SELECT idProf as id,
+                                  nomProf as nom,
+                                  prenomProf as prenom
+                           FROM prof  RIGHT JOIN CoursProf  ON idProf=FK_idProf ";
+
+    const sqlInsert="";
 
     const sqlUpdate="";
 
@@ -30,17 +34,38 @@ class ProfDAO
     {
         $this->pdo = $pdo;
     }
+    public function getById($id){
+
+        $req=$this->pdo->prepare(self::sqlGetById);
+
+        $req->setFetchMode(PDO::FETCH_CLASS,Prof::class);
+
+        $req->execute(array($id));
+
+        $profs=$req->fetch();
+        return $profs;
+    }
+
+    public function getProf($where="",$param=null){
+        $sql=self::sqlGet.$where;
+
+        $req=$this->pdo->prepare($sql);
+
+        $req->setFetchMode(PDO::FETCH_CLASS,Prof::class);
+
+        $req->execute($param);
+
+        $profs=$req->fetchAll();
+        return $profs;
+    }
 
     /**
      * @param $idCours
      * @return array Prof
      */
-    public function getProfByCours($idCours){
-        $req=$this->pdo->prepare(self::sqlGetByIdCours);
-        $req->setFetchMode(PDO::FETCH_CLASS,Prof::class);
-        $req->execute(array($idCours));
-        $profs=$req->fetchAll();
-        return $profs;
+    public function getByIdCours($idCours){
+
+        return $this->getProf('WHERE FK_idCours=?',array($idCours));
     }
 
 }

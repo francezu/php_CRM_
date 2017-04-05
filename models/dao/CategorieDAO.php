@@ -24,6 +24,8 @@ class CategorieDao
                                        on s.FK_anneeCategorie=c.anneeCategorie and s.FK_idCategorie=c.idCategorie
                                   where c.anneeCategorie=? and c.idCategorie=? ;";
 
+    const sqlInsert="";
+
     const sqlUpdate="";
 
     const sqlDeleteArt = "DELETE FROM Categorie where anneeCategorie=? AND  idCategorie=?";
@@ -67,7 +69,7 @@ class CategorieDao
             }
 
             $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
-            $categorie->setCours($coursDao->getAllCoursByYearAndTypeWhiteLigCommande($categorie->getAnnee(),$categorie->getCodeCategorie()));
+            $categorie->setCours($coursDao->getByIdCategorie($categorie->getAnnee(),$categorie->getCodeCategorie()));
 
             /*on test si SousCategorie n'est pas une Exeption*/
             $categorie->setSousCategorie($this->getSousCategorie($annee,$type) instanceof Exception ? null:$this->getSousCategorie($annee,$type));
@@ -99,7 +101,7 @@ class CategorieDao
             $coursDao=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
             /*Recup les Cours pour chaque SousCategorie*/
             for($i=0;$i<count($sousCategories);$i++){
-                $cours=$coursDao->getAllCoursByYearAndTypeWhiteLigCommande($sousCategories[$i]->getAnnee(),$sousCategories[$i]->getCodeCategorie());
+                $cours=$coursDao->getByIdCategorie($sousCategories[$i]->getAnnee(),$sousCategories[$i]->getCodeCategorie());
                 $sousCategories[$i]->setCours($cours);
             }
             return $sousCategories;

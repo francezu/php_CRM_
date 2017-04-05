@@ -9,10 +9,6 @@
 abstract class Inscription
 {
 
-    protected $nomForm;
-
-    protected $ref;
-
     /**
      * @var int
      */
@@ -49,6 +45,9 @@ abstract class Inscription
     protected $total;
 
 
+    public function __construct(){
+
+    }
 
 
     /**
@@ -62,7 +61,7 @@ abstract class Inscription
      * @param String $confCommande
      * @param String $note
      * @param bool $garderie
-     */
+
     public function __construct($dateInscrption=null, $total=null, $paiementOnline=null, $msg=null, $statutPaiement=null, $note=null, $garderie=null,$id=null)
     {
         !is_null($id)?$this->id = $id:null;
@@ -75,37 +74,7 @@ abstract class Inscription
         !is_null($garderie)?$this->garderie = $garderie:null;
     }
 
-    /**
-     * @return mixed
      */
-    public function getNomForm()
-    {
-        return $this->nomForm;
-    }
-
-    /**
-     * @param mixed $nomForm
-     */
-    public function setNomForm($nomForm)
-    {
-        $this->nomForm = $nomForm;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRef()
-    {
-        return $this->ref;
-    }
-
-    /**
-     * @param mixed $ref
-     */
-    public function setRef($ref)
-    {
-        $this->ref = $ref;
-    }
 
     /**
      * @return int

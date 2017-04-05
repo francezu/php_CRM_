@@ -11,18 +11,17 @@ class LigInscriptionCoursDao
 
     private $pdo;
 
-    const sqlGetAll="";
-
-    const sqlGetByIdCours="SELECT FK_idCommandeLig as idCommande,
+    const sqlGet="SELECT FK_idCommandeLig as idCommande,
                                    numLigCommande as numLig,
                                    FK_idParticipantLig as idParticipant,
                                    FK_idCoursLig as idCours
-                           FROM LigCommande
-                           WHERE FK_idCoursLig=?;";
+                           FROM LigCommande ";
+
+    const sqlInsert="";
 
     const sqlUpdate="";
 
-    const sqlDeleteArt = "DELETE FROM LigCommande  where FK_idCommandeLig=?";
+    const sqlDelete = "DELETE FROM LigCommande  where FK_idCommandeLig=?";
 
     /**
      * DaoCours constructor.
@@ -34,40 +33,50 @@ class LigInscriptionCoursDao
     }
 
     /**
-     * @param $idCours L'id du Cours
-     * @return array Une Array des LigCommande.(une LigCommande =obj COMMANDE ,obj Client,int numLig)
+     * @param $where rexExp
+     * @param $param array for where
+     * @param  boolean $FetchType  default=LAZY or EAGER Cours,Inscription,Participant;
+     * @return array LigInscriptionCours
      */
-    public function getGetAllByIdCoursWhiteCommandeAndParticipant($idCours){
-
-
-        $req = $this->pdo->prepare(self::sqlGetByIdCours);
-
+    public function getLigInscriptionCours($where="",$param=null,$FetchType=false){
+        $sql=self::sqlGet.$where;
+        $req=$this->pdo->prepare($sql);
         /*Recup sur forme array [0...*] */
         $req->setFetchMode(PDO::FETCH_NUM);
-
-        $req->execute(array($idCours));
+        $req->execute($param);
         $result=$req->fetchAll();
+        if($FetchType){
 
-        $participnatDAO=DaoFactory::getInstanceDaoFactory()->getParticipantDAO();
-        $inscriptionCoursDAO=DaoFactory::getInstanceDaoFactory()->getInscriptionCoursDAO();
-        $coursDAO=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
+            $participnatDAO=DaoFactory::getInstanceDaoFactory()->getParticipantDAO();
+            $inscriptionCoursDAO=DaoFactory::getInstanceDaoFactory()->getInscriptionCoursDAO();
+            $coursDAO=DaoFactory::getInstanceDaoFactory()->getCoursDAO();
 
-        /* on cree l'obj LigCommande avec l'obj Participant et on l'ajoute a une array $lignes*/
-         foreach ($result as $row ) {
-             /*recuperation du Participant en function de l'id*/
-            $participant=$participnatDAO->getFromId($row[2]);
-             /*recuperation de la Commande en function de l'id*/
-            $inscription=$inscriptionCoursDAO->getGetById($row[2]);
-            $cours=$coursDAO->getCoursById($row[3]);
 
-            $lignes[]=new LigInscriptionCours($inscription,$row[1],$participant,$cours);
-         }
+            foreach ($result as $row ) {
+                /*recuperation du Participant en function de l'id*/
+                $participant=$participnatDAO->getById($row[2]);
+                /*recuperation de la Commande en function de l'id*/
+                $inscription=$inscriptionCoursDAO->getGetById($row[2]);
+                $cours=$coursDAO->getById($row[3]);
 
-        /*dans le cas ou le cours n'a pas d'inscriptions*/
-         if(isset($lignes[0])){
-             return $lignes ;
-         }
+                $lignes[]=new LigInscriptionCours($inscription,$row[1],$participant,$cours);
+            }
 
+            /*dans le cas ou le cours n'a pas d'inscriptions*/
+            if(isset($lignes[0])){
+                return $lignes ;
+            }
+
+        }
+
+    }
+
+    /**
+     * @param $idCours L'id du Cours
+     * @return array  LigInscriptionCours (LigInscription ,Participant,int numLig,Cours)
+     */
+    public function getGetByIdCours($idCours){
+        return $this->getLigInscriptionCours("WHERE FK_idCoursLig=?",array($idCours),true);
 
     }
 }

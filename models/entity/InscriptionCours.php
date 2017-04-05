@@ -18,6 +18,11 @@ class InscriptionCours extends Inscription
      */
     private $etalmentPaiement;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * InscriptionCours constructor.
      * @param int $id
@@ -29,13 +34,13 @@ class InscriptionCours extends Inscription
      * @param String $confCommande
      * @param String $note
      * @param bool $garderie
-     */
+
     public function __construct($dateInscrption=null, $total=null, $etalmentPaiement=null, $paiementOnline=null, $msg=null, $statutPaiement=null, $note=null, $garderie=null,$id=null)
     {
         !is_null($etalmentPaiement)?$this->etalmentPaiement = $etalmentPaiement:null;
         parent::__construct($dateInscrption=null, $total=null, $paiementOnline=null, $msg=null, $statutPaiement=null, $note=null, $garderie=null,$id=null);
     }
-
+     */
     /**
      * @return LigInscriptionCours
      */

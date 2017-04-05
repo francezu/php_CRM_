@@ -30,7 +30,7 @@ class Metier
     /**
      * @param $annee
      * @param $categorie
-     * @return  array Tranche avec les Cours
+     * @return  array Tranche Age avec les Cours
      */
     public function getCoursByTrancheAge($annee, $type)
     {
@@ -50,7 +50,7 @@ class Metier
 
         /*Les tranche d'age*/
         $trancheDAO = $this->fabrique->getTrancheDAO();
-        $trancheAge = $trancheDAO->getListe();
+        $trancheAge = $trancheDAO->getAll();
 
         /*Rajout Cours pour chaque tranche d'age*/
         for ($j = 0; $j < count($trancheAge); $j++) {
@@ -78,9 +78,8 @@ class Metier
     }
 
 
-    public function  insertDataBase(){
-
-    }
-
+public function test(){
+        $pers=new Participant();
+}
 
 }

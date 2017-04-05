@@ -9,6 +9,9 @@
 class Profil
 {
 
+    /*
+     * @var int
+     * */
     private $id;
     /**
      * @var  bool
@@ -26,21 +29,21 @@ class Profil
      * @param bool $newsletter
      * @param bool $photo
      */
-    public function __construct($newsletter=null,$photo=null,$id = null)
+    public function __construct($newsletter,$photo, $id=null)
     {
         /*comme en php il n'existe pas de surcharge d'operater pour pouvoir avoir plusieurs constructeurs*/
         /*pouvoir utilise le meme constructeur avec PDO et normalment*/
         //*si la variable est null on fait rien avec l'attribute*/
-        !is_null($newsletter)?$this->newsletter = $newsletter:null;
-        !is_null($photo)?$this->photo = $photo:null;
-        !is_null($id) ? $this->id=$id : null;
-
+        $this->newsletter = $newsletter;
+        $this->photo = $photo;
+        $this->id=$id;
     }
+
 
     /**
      * @return int
      */
-    public function getId()
+    public  function getId()
     {
         return $this->id;
     }

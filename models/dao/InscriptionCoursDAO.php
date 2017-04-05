@@ -11,8 +11,6 @@ class InscriptionCoursDAO
 
     private $pdo;
 
-    const sqlGetAll="";
-
     const sqlGetById="SELECT idCommande as id,
                                dateCommande as dateInscrption,
                                msgCommande as msg,
@@ -24,6 +22,10 @@ class InscriptionCoursDAO
                                garderieCommande as garderie
                       FROM Commande
                       WHERE idCommande=? ;";
+
+    const sqlGet="";
+
+    const sqlInsert="";
 
     const sqlUpdatePaiement="UPDATE Commande SET confCommande=:statutPaiement WHERE idCommande=:idCommande;";
 

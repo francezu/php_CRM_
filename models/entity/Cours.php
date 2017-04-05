@@ -74,7 +74,26 @@ class Cours
     private $categorieCours;
 
 
+    public function __construct(array $data=null){
 
+       !is_null($data)?$this->hydrate($data):null;
+    }
+
+    /*function qui regarde apres la function a appel en function du nom de la colonne*/
+    public function hydrate(array $donnees){
+
+        foreach ($donnees as $key => $value){
+            // On récupère le nom du setter correspondant à l'attribut.
+            $method = 'set'.ucfirst($key);
+            // Si le setter correspondant existe.
+            if (method_exists($this, $method)){
+                // On appelle le setter.
+                $this->$method($value);
+            }
+        }
+    }
+
+/*
     public function __construct($code=null, $nom=null, $desc=null, $materiel=null, $prof=null, $hD=null,$hF=null, $j=null, array $date=null,$tAge=null,$catCours=null, array $ligInscCours=null, $prix=null,$id=null)
     {
         !is_null($id)?$this->id = $id:null;
@@ -92,6 +111,9 @@ class Cours
         !is_null($tAge)?$this->trancheAge = $tAge:null;
         !is_null($catCours)?$this->categorieCours= $catCours:null;
     }
+  */
+
+
 
 
     /**

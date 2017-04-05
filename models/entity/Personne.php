@@ -37,6 +37,11 @@ abstract class Personne
      * @var   int
      */
     protected $code;
+
+    /**
+     * @var String
+     */
+    protected $pays;
     /**
      * @var  String car  +32....
      */
@@ -47,13 +52,10 @@ abstract class Personne
     protected $tel2;
 
 
+   public function __construct()
+   {
+   }
 
-    /**
-     * Personne constructor.
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * @return int

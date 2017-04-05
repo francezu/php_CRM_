@@ -11,20 +11,22 @@ class ProfilDAO
 
     private  $pdo;
 
-    const sqlGetAll="SELECT idProfil as id,
-                            newsletterProfil as newsletter,
-	                        photoProfil as  photo	    
-                      FROM Profil ;";
-
     const sqlGetById="SELECT idProfil as id,
                              newsletterProfil as newsletter,
 	                         photoProfil as  photo	    
                       FROM Profil 
-                      WHERE FK_idParticipantProfil=?;";
+                      WHERE idProfil=?";
+
+    const sqlGet="SELECT idProfil as id,
+                            newsletterProfil as newsletter,
+	                        photoProfil as  photo	    
+                      FROM Profil ";
+
+    const sqlInsert="";
+
     const sqlUpdate="";
 
-    const sqlDeleteArt = "DELETE FROM Profil where FK_idParticipantProfil=?";
-
+    const sqlDelete = "DELETE FROM Profil where FK_idParticipantProfil=?";
 
 
     /**
@@ -39,27 +41,36 @@ class ProfilDAO
         $this->pdo = $pdo;
     }
 
+    public function getById($id){
 
-    public  function getListe(){
         $req=$this->pdo->query(self::sqlGetById);
-
-        $req->setFetchMode(PDO::FETCH_CLASS,Profile::class);
-
-        $listeProfile=$req->fetchAll();
-
-        return $listeProfile;
+        $req->setFetchMode(PDO::FETCH_NUM);
+        $req->execute(array($id));
+        $result=$req->fetch();
+        $profile=new Profil($result[0][1],$result[0][2],$result[0][0]);
+        return $profile;
     }
 
 
-    public  function  getFromId($id){
-        $req=$this->pdo->prepare(self::sqlGetById);
+    public  function getProfil($where="",$param){
 
-        $req->setFetchMode(PDO::FETCH_CLASS,Profil::class);
+        $sql=self::sqlGet.$where;
+        $req=$this->pdo->prepare($sql);
+        $req->setFetchMode(PDO::FETCH_NUM);
+        $req->execute($param);
+        $result=$req->fetchAll();
 
-        $req->execute(array($id));
+        $profiles=[];
+        foreach ($result as $row ){
+            $profiles[]=new Profil($row[1],$row[2],$row[0]);
+        }
 
-        $profil=$req->fetch();
+        return $profiles;
+    }
 
-        return $profil;
+
+    public  function  getByIdParticipant($id){
+
+            return $this->getProfil('WHERE FK_idParticipantProfil=?',array($id))[0];
     }
 }

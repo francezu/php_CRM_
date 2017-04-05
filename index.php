@@ -55,7 +55,6 @@ if($method==='GET'){
          * le $content on va l'afficher dans le template
          */
         require('views/templates/default.php');
-
 }else if($method==='POST'){
     $ctr->updateStatutPaiement();
 }else{

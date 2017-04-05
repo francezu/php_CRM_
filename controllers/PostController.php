@@ -15,6 +15,8 @@ class PostController extends AppController
 {
     public function accueil(){
         $this->render('accueil');
+
+
     }
 
     public function ateliersAndStages(){
@@ -56,6 +58,7 @@ class PostController extends AppController
 
     public function preparts2016(){
     }
+
     public function  anniversaireCreatifs(){
     }
 }

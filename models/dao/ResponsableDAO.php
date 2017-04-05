@@ -11,7 +11,7 @@ class ResponsableDAO
 
     private  $pdo;
 
-    const sqlGetAll="SELECT   idResponsable as id,
+    const sqlGetById="SELECT   idResponsable as id,
                               nomResponsable as nom,
                               prenomResponsable as prenom,
                               rueResponsable as rueN,
@@ -21,21 +21,23 @@ class ResponsableDAO
                               emailResponsable as email,
                               tel1Responsable as tel1,
                               tel2Responsable as tel2
-                     FROM Responsable;";
+                     FROM Responsable WHERE idResponsable=?";
 
-    const sqlGetById="SELECT  r.idResponsable as id,
-                              r.nomResponsable as nom,
-                              r.prenomResponsable as prenom,
-                              r.rueResponsable as rueN,
-                              r.villeResponsable as ville,
-                              r.codeResponsable as code,
-                              r.paysResponsable as pays,
-                              r.emailResponsable as email,
-                              r.tel1Responsable as tel1,
-                              r.tel2Responsable as tel2
-                      FROM Responsable r right join ResponsableParticipant rp
-                                        on r.idResponsable=rp.FK_idResponsable 
-                      WHERE rp.FK_idResponsable=?;";
+    const sqlGet="SELECT    idResponsable as id,
+                              nomResponsable as nom,
+                              prenomResponsable as prenom,
+                              rueResponsable as rueN,
+                              villeResponsable as ville,
+                              codeResponsable as code,
+                              paysResponsable as pays,
+                              emailResponsable as email,
+                              tel1Responsable as tel1,
+                              tel2Responsable as tel2
+                      FROM Responsable  right join ResponsableParticipant 
+                                        on idResponsable=FK_idResponsable ";
+
+
+
 
     const sqlUpdate="";
 
@@ -59,15 +61,13 @@ class ResponsableDAO
     /**
      * @return mixed Liste des touts les Responsable de la DB
      */
-    public function getListe(){
-        /**
-         * initialisation de la connection a la base de donnee
-         */
+    public function getResponsables($where='',$param=null){
 
+        $sql=self::sqlGet.$where;
         /**
          * statement a execute sur la base de donnee
          */
-        $req=$this->pdo->query(self::sqlGetAll);
+        $req=$this->pdo->prepare($sql);
         /**
          * fetchAll() va nous renvoier les resultat sur forme d'un tableau
          * on peut preciser en parametre le syle de fetch que l'on veut pour nous comme on travail avec des objects c'est preferable que l'on recois des obj
@@ -75,31 +75,23 @@ class ResponsableDAO
          * PDO::FETCH_OBJ : retourne un objet anonyme avec les noms de propriétés qui correspondent aux noms des colonnes retournés dans le jeu de résultats
          * PDO::FETCH_CLASS et en seconde param a classe a charger
          */
-        $responsables=$req->fetchAll(PDO::FETCH_CLASS,Responsable::class);
+        $req->setFetchMode(PDO::FETCH_CLASS,Responsable::class);
 
-
-
+        $req->execute($param);
+        /*Car ça peut renvoir une liste de plusieurs responsables*/
+        /*Un utilisateur peut avoir un/deux responsables*/
+        $responsables=$req->fetchAll();
         return $responsables;
     }
 
     /**
      * @param $id  pour rechercher le responsable
-     * @return Responsable
+     * @return array Responsables
      */
-    public  function getFromId($id){
-        $req = $this->pdo->prepare(self::sqlGetById);
+    public  function getByIdParticipant($id){
 
-        $req->execute(array($id));
-        /*
-         * dans quelle forme on veut recupere les valeur de la DB
-         * */
-        $req->setFetchMode(PDO::FETCH_CLASS,Responsable::class);
+        return $this->getResponsables("WHERE FK_idResponsable=?",array($id));
 
-        /*Car ça peur renvoier une liste de plusieurs responsable*/
-        /*Un utilisateur peut avoir un/deux responsables*/
-        $responsables=$req->fetchAll();
-
-        return $responsables;
     }
 
 }

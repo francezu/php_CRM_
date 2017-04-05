@@ -31,6 +31,7 @@ class Participant extends Personne
      */
     public function __construct()
     {
+
         parent::__construct();
     }
 
@@ -99,8 +100,8 @@ class Participant extends Personne
         $this->responsables = $responsables;
     }
 
-    public function addResponsables(Responsable $responsable){
-        $this->responsables[]=$responsable;
+    public function addResponsable(Responsable $respo){
+        $this->responsables[]=$respo;
     }
 
 

@@ -97,7 +97,10 @@ class ParticipantDAO
          * On ajoute le responsable et le profil a l'objet participant
          */
         $participant->setResponsables($responsables);
-        $participant->setProfil($profil);
+        /*modification du profil du Participant pour respecte la composition*/
+        $participant->getProfil()->setId($profil->getId());
+        $participant->getProfil()->setNewsletter($profil->getNewsletter());
+        $participant->getProfil()->setPhoto($profil->getPhoto());
         return $participant;
     }
 

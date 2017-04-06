@@ -47,7 +47,7 @@ class ProfilDAO
         $req->setFetchMode(PDO::FETCH_NUM);
         $req->execute(array($id));
         $result=$req->fetch();
-        $profile=new Profil($result[0][1],$result[0][2],$result[0][0]);
+        $profile=new Profil($result[0],$result[1],$result[2]);
         return $profile;
     }
 
@@ -64,13 +64,12 @@ class ProfilDAO
         foreach ($result as $row ){
             $profiles[]=new Profil($row[1],$row[2],$row[0]);
         }
-
         return $profiles;
     }
 
 
     public  function  getByIdParticipant($id){
-
-            return $this->getProfil('WHERE FK_idParticipantProfil=?',array($id))[0];
+            $profil=$this->getProfil('WHERE FK_idParticipantProfil=?',array($id));
+            return $profil[0];
     }
 }

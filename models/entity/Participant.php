@@ -13,7 +13,7 @@ class Participant extends Personne
      */
     private $sex;
     /**
-     * @var format aaaa/mm/dd
+     * @var format aaaa-mm-dd
      */
     private $dateNaissance;
     /**
@@ -25,14 +25,13 @@ class Participant extends Personne
      */
     private $responsables;
 
-    /**
-     * Participant constructor.
 
-     */
+
     public function __construct()
     {
-
         parent::__construct();
+        /*pour respecte la composition*/
+        $this->profil=new Profil(1,1);
     }
 
 

@@ -77,9 +77,4 @@ class Metier
      return $this->fabrique->getInscriptionCoursDAO()->updateEtatPaiement($id,$etat);
     }
 
-
-public function test(){
-        $pers=new Participant();
-}
-
 }
